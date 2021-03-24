@@ -5,6 +5,10 @@ class Tuple < Struct.new(:x, :y, :z, :w)
   POINT_W = 1.0
   VECTOR_W = 0.0
 
+  def initialize(*args)
+    super(*args.collect(&:to_f))
+  end
+
   def to_a
     [x, y, z, w]
   end
@@ -20,6 +24,14 @@ class Tuple < Struct.new(:x, :y, :z, :w)
 
   def -(other)
     Tuple.new(*[self, other].transpose.map { |arr| arr[0] - arr[1] })
+  end
+
+  def *(num)
+    Tuple.new(*self.map { |t| t * num.to_f })
+  end
+
+  def -@
+    Tuple.new(0, 0, 0, 0.0) - self
   end
 
   def point?
