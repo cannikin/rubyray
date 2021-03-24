@@ -1,12 +1,29 @@
 # Represents a point in 3D space
 
-class Tuple < Struct.new(:x, :y, :z, :w)
+class Tuple
 
   POINT_W = 1.0
   VECTOR_W = 0.0
 
-  def initialize(*args)
-    super(*args.collect(&:to_f))
+  attr_reader :x, :y, :z, :w
+
+  def initialize(x, y, z, w)
+    @x = x.to_f
+    @y = y.to_f
+    @z = z.to_f
+    case w
+    when Symbol
+      case w
+      when :point
+        @w = POINT_W
+      when :vector
+        @w = VECTOR_W
+      else
+        raise StandardError, "Unknown type"
+      end
+    else
+      @w = w
+    end
   end
 
   def to_a
@@ -27,11 +44,33 @@ class Tuple < Struct.new(:x, :y, :z, :w)
   end
 
   def *(num)
-    Tuple.new(*self.map { |t| t * num.to_f })
+    Tuple.new(*self.to_a.map { |t| t * num.to_f })
   end
 
+  def /(num)
+    self * (1.0 / num)
+  end
+
+  # negation
   def -@
     Tuple.new(0, 0, 0, 0.0) - self
+  end
+
+  def magnitude
+    Math.sqrt(x**2 + y**2 + z**2 + w**2)
+  end
+
+  # converts a tuple into a unit vector (magnitude of 1)
+  def normalize
+    mag = magnitude
+    Tuple.new(x / mag, y / mag, z / mag, w / mag)
+  end
+
+  def dot(other)
+    self.x * other.x +
+    self.y * other.y +
+    self.z * other.z +
+    self.w * other.w
   end
 
   def point?

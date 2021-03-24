@@ -2,7 +2,7 @@ require_relative './test_helper'
 
 class TupleTest < Minitest::Test
 
-  test 'tuple initialization' do
+  test '#initialize' do
     tuple = Tuple.new(4.3, -4.2, 3.1, 1.0)
 
     assert_instance_of Tuple, tuple
@@ -12,7 +12,23 @@ class TupleTest < Minitest::Test
     assert_equal tuple.w, 1.0
   end
 
-  test 'initialize converts everything to floats' do
+  test '#initialize a point by name' do
+    tuple = Tuple.new(4.3, -4.2, 3.1, :point)
+
+    assert tuple.point?
+  end
+
+  test '#initialize a vector by name' do
+    tuple = Tuple.new(4.3, -4.2, 3.1, :vector)
+
+    assert tuple.vector?
+  end
+
+  test '#initialize with an unknown name raises an error' do
+    assert_raises(StandardError) { Tuple.new(4.3, -4.2, 3.1, :foobar) }
+  end
+
+  test '#initialize converts everything to floats' do
     tuple = Tuple.new(4, -4, 3, 0)
 
     assert_equal tuple.x, 4.0
@@ -30,7 +46,7 @@ class TupleTest < Minitest::Test
     assert tuple1 != tuple3
   end
 
-  test 'tuple to array' do
+  test '#to_a' do
     tuple = Tuple.new(4.3, -4.2, 3.1, 1.0)
 
     assert_equal tuple.to_a, [4.3, -4.2, 3.1, 1.0]
@@ -102,5 +118,55 @@ class TupleTest < Minitest::Test
     total = tuple * 0.5
 
     assert_equal total, Tuple.new(0.5, -1, 1.5, -2.0)
+  end
+
+  test 'dividing a tuple by a scalar' do
+    tuple = Tuple.new(1, -2, 3, -4)
+    total = tuple / 2
+
+    assert_equal total, Tuple.new(0.5, -1, 1.5, -2.0)
+  end
+
+  test '#magnitude' do
+    vector = Tuple.new(1, 0, 0, :vector)
+    assert_equal vector.magnitude, 1.0
+
+    vector = Tuple.new(0, 1, 0, :vector)
+    assert_equal vector.magnitude, 1.0
+
+    vector = Tuple.new(0, 0, 1, :vector)
+    assert_equal vector.magnitude, 1.0
+
+    vector = Tuple.new(1, 2, 3, :vector)
+    assert_equal vector.magnitude, Math.sqrt(14)
+
+    vector = Tuple.new(-1, -2, -3, :vector)
+    assert_equal vector.magnitude, Math.sqrt(14)
+  end
+
+  test '#normalize' do
+    vector = Tuple.new(4, 0, 0, :vector).normalize
+    assert_equal vector, Tuple.new(1, 0, 0, :vector)
+
+    vector = Tuple.new(1, 2, 3, :vector).normalize
+    assert_in_epsilon vector.x, 0.26726, 0.00001
+    assert_in_epsilon vector.y, 0.53452, 0.00001
+    assert_in_epsilon vector.z, 0.80178, 0.00001
+  end
+
+  test "normalized tuple's magnitude is always 1.0" do
+    vector = Tuple.new(1, 2, 3, :vector).normalize
+    assert_equal vector.magnitude, 1.0
+
+    vector = Tuple.new(-1, -2, -3, :vector).normalize
+    assert_equal vector.magnitude, 1.0
+  end
+
+  test '#dot' do
+    vector1 = Tuple.new(1, 2, 3, :vector)
+    vector2 = Tuple.new(2, 3, 4, :vector)
+    result = vector1.dot(vector2)
+
+    assert_equal result, 20
   end
 end
