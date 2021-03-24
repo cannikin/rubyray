@@ -1,9 +1,9 @@
-require 'minitest/autorun'
+require_relative './test_helper'
 require_relative '../main'
 
 class MainTest < Minitest::Test
 
-  def test_point
+  test 'creating a point' do
     point = point(4.3, -4.2, 3.1)
 
     assert_instance_of Tuple, point
@@ -15,7 +15,7 @@ class MainTest < Minitest::Test
     assert_equal point.w, 1.0
   end
 
-  def test_vector
+  test 'creating a vector' do
     vector = vector(4.3, -4.2, 3.1)
 
     assert_instance_of Tuple, vector
