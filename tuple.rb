@@ -73,6 +73,14 @@ class Tuple
     self.w * other.w
   end
 
+  def cross(other)
+    new_x = self.y * other.z - self.z * other.y
+    new_y = self.z * other.x - self.x * other.z
+    new_z = self.x * other.y - self.y * other.x
+
+    Tuple.new(new_x, new_y, new_z, :vector)
+  end
+
   def point?
     w == POINT_W
   end

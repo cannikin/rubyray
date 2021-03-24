@@ -170,4 +170,15 @@ class TupleTest < Minitest::Test
 
     assert_equal result, 20
   end
+
+  test '#cross' do
+    vector1 = Tuple.new(1, 2, 3, :vector)
+    vector2 = Tuple.new(2, 3, 4, :vector)
+
+    result1 = vector1.cross(vector2)
+    assert_equal result1, Tuple.new(-1, 2, -1, :vector)
+
+    result2 = vector2.cross(vector1)
+    assert_equal result2, Tuple.new(1, -2, 1, :vector)
+  end
 end
