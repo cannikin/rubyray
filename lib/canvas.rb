@@ -1,4 +1,5 @@
 require_relative './color'
+require_relative './errors/canvas_errors'
 
 class Canvas
 
@@ -21,7 +22,11 @@ class Canvas
   end
 
   def write(x, y, color)
+    raise OutOfBoundsError.new(x, y) if x > width or y > height
+
     pixels[y][x] = color
+  rescue NoMethodError => e
+    raise OutOfBoundsError.new(x, y)
   end
 
   def fill(color)
