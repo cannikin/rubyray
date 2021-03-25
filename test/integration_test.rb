@@ -9,6 +9,7 @@ class IntegrationTest < Minitest::Test
     vector = Vector.new(-2, 3, 1)
     result = point + vector
 
+    assert_instance_of Point, result
     assert_equal result, Point.new(1, 1, 6)
   end
 
@@ -17,6 +18,7 @@ class IntegrationTest < Minitest::Test
     point2 = Point.new(5, 6, 7)
     result = point1 - point2
 
+    assert_instance_of Vector, result
     assert_equal result, Vector.new(-2, -4, -6)
   end
 
@@ -25,6 +27,7 @@ class IntegrationTest < Minitest::Test
     vector = Vector.new(5, 6, 7)
     result = point - vector
 
+    assert_instance_of Point, result
     assert_equal result, Point.new(-2, -4, -6)
   end
 

@@ -1,10 +1,14 @@
 require_relative './tuple'
+require_relative './point_vector_math'
 
 class Point < Tuple
+  include PointVectorMath
 
-    def initialize(*args)
-      super
-      @list << 1.0
-    end
+  W = 1.0
+
+  def initialize(*args)
+    super
+    @list << W
+  end
 
 end

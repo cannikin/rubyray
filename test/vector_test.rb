@@ -3,13 +3,22 @@ require_relative '../vector'
 
 class VectorTest < Minitest::Test
 
+  test 'adding two vectors is a vector' do
+    vector1 = Vector.new(3, 2, 1)
+    vector2 = Vector.new(5, 6, 7)
+    result = vector1 + vector2
+
+    assert_instance_of Vector, result
+    assert_equal result, Vector.new(8, 8, 8)
+  end
+
   test 'subtracing two vectors is a vector' do
     vector1 = Vector.new(3, 2, 1)
     vector2 = Vector.new(5, 6, 7)
     result = vector1 - vector2
 
+    assert_instance_of Vector, result
     assert_equal result, Vector.new(-2, -4, -6)
-
   end
 
   test '#w is 0.0' do
