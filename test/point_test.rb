@@ -1,5 +1,5 @@
 require_relative './test_helper'
-require_relative '../point'
+require_relative '../lib/point'
 
 class PointTest < Minitest::Test
 

@@ -1,5 +1,5 @@
 require_relative './test_helper'
-require_relative '../tuple'
+require_relative '../lib/tuple'
 
 class TupleTest < Minitest::Test
 

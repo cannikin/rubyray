@@ -1,5 +1,5 @@
-require_relative '../../point'
-require_relative '../../vector'
+require_relative '../../lib/point'
+require_relative '../../lib/vector'
 
 class Projectile
   attr_reader :position, :velocity

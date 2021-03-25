@@ -1,5 +1,5 @@
 require_relative './test_helper'
-require_relative '../vector'
+require_relative '../lib/vector'
 
 class VectorTest < Minitest::Test
 
