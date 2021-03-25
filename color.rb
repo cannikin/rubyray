@@ -6,4 +6,23 @@ class Color < Tuple
   alias :green :y
   alias :blue :z
 
+  def +(*args)
+    tuple = super
+    Color.new(*tuple)
+  end
+
+  def -(*args)
+    tuple = super
+    Color.new(*tuple)
+  end
+
+  def *(other)
+    if other.kind_of? Color
+      Color.new(self.red * other.red, self.green * other.green, self.blue * other.blue)
+    else
+      tuple = super
+      Color.new(*tuple)
+    end
+  end
+
 end
