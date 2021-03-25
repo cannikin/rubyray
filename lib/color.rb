@@ -25,4 +25,8 @@ class Color < Tuple
     end
   end
 
+  def to_s(min, max)
+    [red, green, blue].map { |color| (color * max).round.clamp(min, max) }.join(' ')
+  end
+
 end

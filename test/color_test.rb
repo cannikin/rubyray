@@ -50,4 +50,10 @@ class ColorTest < Minitest::Test
     assert_in_epsilon result.blue, 0.04
   end
 
+  test '#to_s returns the color ready for output in a PPM' do
+    color = Color.new(1.5, 0.5, -1.0)
+    result = color.to_s(0, 255)
+
+    assert_equal '255 128 0', result
+  end
 end
