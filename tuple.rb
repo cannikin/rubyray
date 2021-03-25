@@ -2,32 +2,28 @@
 
 class Tuple
 
-  POINT_W = 1.0
-  VECTOR_W = 0.0
+  def initialize(*args)
+    @list = args.map(&:to_f)
+  end
 
-  attr_reader :x, :y, :z, :w
+  def x
+    @list[0]
+  end
 
-  def initialize(x, y, z, w)
-    @x = x.to_f
-    @y = y.to_f
-    @z = z.to_f
-    case w
-    when Symbol
-      case w
-      when :point
-        @w = POINT_W
-      when :vector
-        @w = VECTOR_W
-      else
-        raise StandardError, "Unknown type"
-      end
-    else
-      @w = w
-    end
+  def y
+    @list[1]
+  end
+
+  def z
+    @list[2]
+  end
+
+  def w
+    @list[3]
   end
 
   def to_a
-    [x, y, z, w]
+    @list
   end
   alias :to_ary :to_a
 
@@ -51,42 +47,8 @@ class Tuple
     self * (1.0 / num)
   end
 
-  # negation
   def -@
-    Tuple.new(0, 0, 0, 0.0) - self
-  end
-
-  def magnitude
-    Math.sqrt(x**2 + y**2 + z**2 + w**2)
-  end
-
-  # converts a tuple into a unit vector (magnitude of 1)
-  def normalize
-    mag = magnitude
-    Tuple.new(x / mag, y / mag, z / mag, w / mag)
-  end
-
-  def dot(other)
-    self.x * other.x +
-    self.y * other.y +
-    self.z * other.z +
-    self.w * other.w
-  end
-
-  def cross(other)
-    new_x = self.y * other.z - self.z * other.y
-    new_y = self.z * other.x - self.x * other.z
-    new_z = self.x * other.y - self.y * other.x
-
-    Tuple.new(new_x, new_y, new_z, :vector)
-  end
-
-  def point?
-    w == POINT_W
-  end
-
-  def vector?
-    w == VECTOR_W
+    Tuple.new(*@list.map { |a| 0 }) - self
   end
 
 end
