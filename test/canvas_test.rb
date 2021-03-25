@@ -40,6 +40,22 @@ class CanvasTest < Minitest::Test
     assert_equal black, canvas.read(3, 3)
   end
 
+  test '#write raises an error when larger than the canvas' do
+    canvas = Canvas.new(2, 2)
+    color = Color.new(1, 0, 0)
+
+    assert_raises(Canvas::OutOfBoundsError) { canvas.write(3, 2, color) }
+    assert_raises(Canvas::OutOfBoundsError) { canvas.write(2, 3, color) }
+  end
+
+  test '#write raises an error when x or y are negative' do
+    canvas = Canvas.new(2, 2)
+    color = Color.new(1, 0, 0)
+
+    assert_raises(Canvas::OutOfBoundsError) { canvas.write(-1, 2, color) }
+    assert_raises(Canvas::OutOfBoundsError) { canvas.write(2, -1, color) }
+  end
+
   test '#fill sets all pixels to the given color' do
     canvas = Canvas.new(2, 2)
     red = Color.new(1, 0, 0)
@@ -50,4 +66,5 @@ class CanvasTest < Minitest::Test
     assert_equal red, canvas.read(1, 0)
     assert_equal red, canvas.read(1, 1)
   end
+
 end

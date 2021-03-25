@@ -22,11 +22,8 @@ class Canvas
   end
 
   def write(x, y, color)
-    raise OutOfBoundsError.new(x, y) if x > width or y > height
-
+    raise OutOfBoundsError.new(x, y) if x < 0 or y < 0 or x > width or y > height
     pixels[y][x] = color
-  rescue NoMethodError => e
-    raise OutOfBoundsError.new(x, y)
   end
 
   def fill(color)
