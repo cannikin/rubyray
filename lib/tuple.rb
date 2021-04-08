@@ -1,5 +1,3 @@
-# Represents a point in 3D space
-
 class Tuple
 
   def initialize(*args)
