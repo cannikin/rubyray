@@ -6,7 +6,6 @@ class Matrix
 
   def initialize(rows)
     @rows = rows
-    # validate!
   end
 
   def [](index)
@@ -34,13 +33,6 @@ class Matrix
 
   def size
     rows.size
-  end
-
-  private def validate!
-    row_count = rows.size
-    rows.each do |row|
-      raise InvalidStructureError if row.size != row_count
-    end
   end
 
 end

@@ -44,15 +44,6 @@ class MatrixTest < Minitest::Test
     assert_equal  1, matrix[2][2]
   end
 
-  # test '#initialize raises an error if row and column counts do not match' do
-  #   assert_raises(Matrix::InvalidStructureError) do
-  #     Matrix.new([
-  #       [ -3,  5],
-  #       [  1]
-  #     ])
-  #   end
-  # end
-
   test '#== compares two equal matrixes' do
     matrixA = Matrix.new([
       [1, 2, 3, 4],
