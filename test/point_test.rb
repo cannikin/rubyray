@@ -7,7 +7,7 @@ class PointTest < Minitest::Test
     point = Point.new(1, -2, 3)
 
     assert_instance_of Point, point
-    assert_equal point.w, 1.0
+    assert_equal 1.0, point.w
   end
 
 end

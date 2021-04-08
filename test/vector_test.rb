@@ -9,7 +9,7 @@ class VectorTest < Minitest::Test
     result = vector1 + vector2
 
     assert_instance_of Vector, result
-    assert_equal result, Vector.new(8, 8, 8)
+    assert_equal Vector.new(8, 8, 8), result
   end
 
   test 'subtracing two vectors is a vector' do
@@ -18,36 +18,36 @@ class VectorTest < Minitest::Test
     result = vector1 - vector2
 
     assert_instance_of Vector, result
-    assert_equal result, Vector.new(-2, -4, -6)
+    assert_equal Vector.new(-2, -4, -6), result
   end
 
   test '#w is 0.0' do
     vector = Vector.new(1, -2, 3)
 
-    assert_equal vector.w, 0.0
+    assert_equal 0.0, vector.w
   end
 
   test 'negating a vector' do
     vector = Vector.new(1, -2, 3)
 
-    assert_equal(-vector, Vector.new(-1, 2, -3))
+    assert_equal(Vector.new(-1, 2, -3), -vector)
   end
 
   test '#magnitude' do
     vector = Vector.new(1, 0, 0)
-    assert_equal vector.magnitude, 1.0
+    assert_equal 1.0, vector.magnitude
 
     vector = Vector.new(0, 1, 0)
-    assert_equal vector.magnitude, 1.0
+    assert_equal 1.0, vector.magnitude
 
     vector = Vector.new(0, 0, 1)
-    assert_equal vector.magnitude, 1.0
+    assert_equal 1.0, vector.magnitude
 
     vector = Vector.new(1, 2, 3)
-    assert_equal vector.magnitude, Math.sqrt(14)
+    assert_equal Math.sqrt(14), vector.magnitude
 
     vector = Vector.new(-1, -2, -3)
-    assert_equal vector.magnitude, Math.sqrt(14)
+    assert_equal Math.sqrt(14), vector.magnitude
   end
 
   test '#normalize' do
@@ -62,10 +62,10 @@ class VectorTest < Minitest::Test
 
   test "normalized tuple's magnitude is always 1.0" do
     vector = Vector.new(1, 2, 3).normalize
-    assert_equal vector.magnitude, 1.0
+    assert_equal 1.0, vector.magnitude
 
     vector = Vector.new(-1, -2, -3).normalize
-    assert_equal vector.magnitude, 1.0
+    assert_equal 1.0, vector.magnitude
   end
 
   test '#dot' do
@@ -73,7 +73,7 @@ class VectorTest < Minitest::Test
     vector2 = Vector.new(2, 3, 4)
     result = vector1.dot(vector2)
 
-    assert_equal result, 20
+    assert_equal 20, result
   end
 
   test '#cross' do
@@ -81,10 +81,10 @@ class VectorTest < Minitest::Test
     vector2 = Vector.new(2, 3, 4)
 
     result1 = vector1.cross(vector2)
-    assert_equal result1, Vector.new(-1, 2, -1)
+    assert_equal Vector.new(-1, 2, -1), result1
 
     result2 = vector2.cross(vector1)
-    assert_equal result2, Vector.new(1, -2, 1)
+    assert_equal Vector.new(1, -2, 1), result2
   end
 
 end

@@ -7,19 +7,19 @@ class TupleTest < Minitest::Test
     tuple = Tuple.new(4.3, -4.2, 3.1, 1.0)
 
     assert_instance_of Tuple, tuple
-    assert_equal tuple.x, 4.3
-    assert_equal tuple.y, -4.2
-    assert_equal tuple.z, 3.1
-    assert_equal tuple.w, 1.0
+    assert_equal 4.3, tuple.x
+    assert_equal -4.2, tuple.y
+    assert_equal 3.1, tuple.z
+    assert_equal 1.0, tuple.w
   end
 
   test '#initialize converts everything to floats' do
     tuple = Tuple.new(4, -4, 3, 0)
 
-    assert_equal tuple.x, 4.0
-    assert_equal tuple.y, -4.0
-    assert_equal tuple.z, 3.0
-    assert_equal tuple.w, 0.0
+    assert_equal 4.0, tuple.x
+    assert_equal -4.0, tuple.y
+    assert_equal 3.0, tuple.z
+    assert_equal 0.0, tuple.w
   end
 
   test 'equality' do
@@ -34,7 +34,7 @@ class TupleTest < Minitest::Test
   test '#to_a' do
     tuple = Tuple.new(4.3, -4.2, 3.1, 1.0)
 
-    assert_equal tuple.to_a, [4.3, -4.2, 3.1, 1.0]
+    assert_equal [4.3, -4.2, 3.1, 1.0], tuple.to_a
   end
 
   test 'adding two tuples' do
@@ -43,7 +43,7 @@ class TupleTest < Minitest::Test
     result = tuple1 + tuple2
 
     assert_instance_of Tuple, result
-    assert_equal result, Tuple.new(1, 1, 6)
+    assert_equal Tuple.new(1, 1, 6), result
   end
 
   test 'subtracting two tuples' do
@@ -52,7 +52,7 @@ class TupleTest < Minitest::Test
     result = point1 - point2
 
     assert_instance_of Tuple, result
-    assert_equal result, Tuple.new(-2, -4, -6)
+    assert_equal Tuple.new(-2, -4, -6), result
   end
 
   test 'multiplying a tuple by a scalar' do
@@ -60,7 +60,7 @@ class TupleTest < Minitest::Test
     result = tuple * 3.5
 
     assert_instance_of Tuple, result
-    assert_equal result, Tuple.new(3.5, -7, 10.5, -14.0)
+    assert_equal Tuple.new(3.5, -7, 10.5, -14.0), result
   end
 
   test 'multiplying a tuple by a fraction' do
@@ -68,7 +68,7 @@ class TupleTest < Minitest::Test
     result = tuple * 0.5
 
     assert_instance_of Tuple, result
-    assert_equal result, Tuple.new(0.5, -1, 1.5, -2.0)
+    assert_equal Tuple.new(0.5, -1, 1.5, -2.0), result
   end
 
   test 'dividing a tuple by a scalar' do
@@ -76,14 +76,14 @@ class TupleTest < Minitest::Test
     result = tuple / 2
 
     assert_instance_of Tuple, result
-    assert_equal result, Tuple.new(0.5, -1, 1.5, -2.0)
+    assert_equal Tuple.new(0.5, -1, 1.5, -2.0), result
   end
 
   test 'negating a tuple' do
     tuple = Tuple.new(1, -2, 3, -4)
 
     assert_instance_of Tuple, tuple
-    assert_equal(-tuple, Tuple.new(-1, 2, -3, 4))
+    assert_equal(Tuple.new(-1, 2, -3, 4), -tuple)
   end
 
 end

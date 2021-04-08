@@ -10,7 +10,7 @@ class IntegrationTest < Minitest::Test
     result = point + vector
 
     assert_instance_of Point, result
-    assert_equal result, Point.new(1, 1, 6)
+    assert_equal Point.new(1, 1, 6), result
   end
 
   test 'subtracing two points returns a vector' do
@@ -19,7 +19,7 @@ class IntegrationTest < Minitest::Test
     result = point1 - point2
 
     assert_instance_of Vector, result
-    assert_equal result, Vector.new(-2, -4, -6)
+    assert_equal Vector.new(-2, -4, -6), result
   end
 
   test 'subtracting a vector from a point returns a point' do
@@ -28,8 +28,7 @@ class IntegrationTest < Minitest::Test
     result = point - vector
 
     assert_instance_of Point, result
-    assert_equal result, Point.new(-2, -4, -6)
+    assert_equal Point.new(-2, -4, -6), result
   end
 
 end
-

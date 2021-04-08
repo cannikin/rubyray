@@ -6,9 +6,9 @@ class ColorTest < Minitest::Test
   test 'aliases x, y and z to red, green and blue' do
     color = Color.new(-0.5, 0.4, 1.7)
 
-    assert_equal color.red, -0.5
-    assert_equal color.green, 0.4
-    assert_equal color.blue, 1.7
+    assert_equal -0.5, color.red
+    assert_equal  0.4, color.green
+    assert_equal  1.7, color.blue
   end
 
   test 'adding colors' do
@@ -17,7 +17,7 @@ class ColorTest < Minitest::Test
     result = color1 + color2
 
     assert_instance_of Color, result
-    assert_equal result, Color.new(1.6, 0.7, 1.0)
+    assert_equal Color.new(1.6, 0.7, 1.0), result
   end
 
   test 'subtracing colors' do
@@ -26,9 +26,9 @@ class ColorTest < Minitest::Test
     result = color1 - color2
 
     assert_instance_of Color, result
-    assert_in_epsilon result.red, 0.2
-    assert_in_epsilon result.green, 0.5
-    assert_in_epsilon result.blue, 0.5
+    assert_in_epsilon 0.2, result.red
+    assert_in_epsilon 0.5, result.green
+    assert_in_epsilon 0.5, result.blue
   end
 
   test 'multiplying color by scalar' do
@@ -36,7 +36,7 @@ class ColorTest < Minitest::Test
     result = color * 2
 
     assert_instance_of Color, result
-    assert_equal result, Color.new(0.4, 0.6, 0.8)
+    assert_equal Color.new(0.4, 0.6, 0.8), result
   end
 
   test 'multiplying color by color' do
@@ -45,9 +45,9 @@ class ColorTest < Minitest::Test
     result = color1 * color2
 
     assert_instance_of Color, result
-    assert_in_epsilon result.red, 0.9
-    assert_in_epsilon result.green, 0.2
-    assert_in_epsilon result.blue, 0.04
+    assert_in_epsilon 0.9, result.red
+    assert_in_epsilon 0.2, result.green
+    assert_in_epsilon 0.04, result.blue
   end
 
   test '#to_s returns the color ready for output in a PPM' do
