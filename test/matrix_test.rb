@@ -3,6 +3,15 @@ require_relative '../lib/matrix'
 
 class MatrixTest < Minitest::Test
 
+  test '.identity returns an identity matrix' do
+    assert_equal Matrix.new([
+      [1, 0, 0, 0],
+      [0, 1, 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 1]
+    ]), Matrix.identity
+  end
+
   test '#initialize a 4x4 matrix' do
     matrix = Matrix.new([
       [   1,    2,    3,    4],
@@ -99,6 +108,38 @@ class MatrixTest < Minitest::Test
       [40, 58, 110, 102],
       [16, 26,  46,  42]
     ]), product
+  end
+
+  test '#* multipling a matrix and a tuple' do
+    matrix = Matrix.new([
+      [1, 2, 3, 4],
+      [2, 4, 4, 2],
+      [8, 6, 4, 1],
+      [0, 0, 0, 1]
+    ])
+    tuple = Tuple.new(1, 2, 3, 1)
+    product = matrix * tuple
+
+    assert_equal Tuple.new(18, 24, 33, 1), product
+  end
+
+  test '#* multipling a matrix by an identity matrix returns the same matrix' do
+    matrix = Matrix.new([
+      [1, 2, 3, 4],
+      [5, 6, 7, 8],
+      [9, 8, 7, 6],
+      [5, 4, 3, 2]
+    ])
+    product = matrix * Matrix.identity
+
+    assert_equal matrix, product
+  end
+
+  test '#* multipling the identity matrix by a tuple returns the tuple' do
+    tuple = Tuple.new(1, 2, 3, 4)
+    product = Matrix.identity * tuple
+
+    assert_equal tuple, product
   end
 
 end

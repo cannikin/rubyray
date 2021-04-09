@@ -1,8 +1,18 @@
-require_relative './errors/matrix_errors'
+require_relative 'errors/matrix_errors'
+require_relative 'tuple'
 
 class Matrix
 
   attr_reader :rows
+
+  def self.identity
+    self.new([
+      [1, 0, 0, 0],
+      [0, 1, 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 1]
+    ])
+  end
 
   def initialize(rows)
     @rows = rows
@@ -17,6 +27,19 @@ class Matrix
   end
 
   def *(other)
+    case other
+    when Matrix
+      matrix_product(other)
+    when Tuple
+      tuple_product(other)
+    end
+  end
+
+  def size
+    rows.size
+  end
+
+  private def matrix_product(other)
     product = Matrix.new(Array.new(size) { [] })
 
     rows.size.times do |row|
@@ -31,8 +54,17 @@ class Matrix
     product
   end
 
-  def size
-    rows.size
+  private def tuple_product(tuple)
+    members = Array.new(4)
+
+    rows.size.times do |row|
+      members[row] = rows[row][0] * tuple.x +
+                     rows[row][1] * tuple.y +
+                     rows[row][2] * tuple.z +
+                     rows[row][3] * tuple.w
+    end
+
+    Tuple.new(*members)
   end
 
 end
