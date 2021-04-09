@@ -6,7 +6,7 @@ class ColorTest < Minitest::Test
   test 'aliases x, y and z to red, green and blue' do
     color = Color.new(-0.5, 0.4, 1.7)
 
-    assert_equal -0.5, color.red
+    assert_equal(-0.5, color.red)
     assert_equal  0.4, color.green
     assert_equal  1.7, color.blue
   end

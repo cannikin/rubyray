@@ -35,10 +35,10 @@ class MatrixTest < Minitest::Test
       [  1, -2]
     ])
 
-    assert_equal -3, matrix[0][0]
-    assert_equal  5, matrix[0][1]
-    assert_equal  1, matrix[1][0]
-    assert_equal -2, matrix[1][1]
+    assert_equal(-3, matrix[0][0])
+    assert_equal(5, matrix[0][1])
+    assert_equal(1, matrix[1][0])
+    assert_equal(-2, matrix[1][1])
   end
 
   test '#initialize a 3x3 matrix' do
@@ -48,9 +48,9 @@ class MatrixTest < Minitest::Test
       [  0,  1,  1]
     ])
 
-    assert_equal -3, matrix[0][0]
-    assert_equal -2, matrix[1][1]
-    assert_equal  1, matrix[2][2]
+    assert_equal(-3, matrix[0][0])
+    assert_equal(-2, matrix[1][1])
+    assert_equal(1, matrix[2][2])
   end
 
   test '#== compares two equal matrixes' do
@@ -140,6 +140,23 @@ class MatrixTest < Minitest::Test
     product = Matrix.identity * tuple
 
     assert_equal tuple, product
+  end
+
+  test '#transpose swaps rows and columns' do
+    original = Matrix.new([
+      [0, 9, 3, 0],
+      [9, 8, 0, 8],
+      [1, 8, 5, 3],
+      [0, 0, 5, 8]
+    ])
+    transposed = Matrix.new([
+      [0, 9, 1, 0],
+      [9, 8, 8, 0],
+      [3, 0, 5, 5],
+      [0, 8, 3, 8]
+    ])
+
+    assert_equal transposed, original.transpose
   end
 
 end

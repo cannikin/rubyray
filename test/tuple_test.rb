@@ -7,19 +7,19 @@ class TupleTest < Minitest::Test
     tuple = Tuple.new(4.3, -4.2, 3.1, 1.0)
 
     assert_instance_of Tuple, tuple
-    assert_equal 4.3, tuple.x
-    assert_equal -4.2, tuple.y
-    assert_equal 3.1, tuple.z
-    assert_equal 1.0, tuple.w
+    assert_equal(4.3, tuple.x)
+    assert_equal(-4.2, tuple.y)
+    assert_equal(3.1, tuple.z)
+    assert_equal(1.0, tuple.w)
   end
 
   test '#initialize converts everything to floats' do
     tuple = Tuple.new(4, -4, 3, 0)
 
-    assert_equal 4.0, tuple.x
-    assert_equal -4.0, tuple.y
-    assert_equal 3.0, tuple.z
-    assert_equal 0.0, tuple.w
+    assert_equal(4.0, tuple.x)
+    assert_equal(-4.0, tuple.y)
+    assert_equal(3.0, tuple.z)
+    assert_equal(0.0, tuple.w)
   end
 
   test 'equality' do

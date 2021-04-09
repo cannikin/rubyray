@@ -25,7 +25,7 @@ class PPM
 
   private def body
     canvas.pixels.collect do |row|
-      line = row.collect do |col|
+      row.collect do |col|
         col.to_s(MIN_COLOR_VALUE, MAX_COLOR_VALUE)
       end.join(' ')
     end.join("\n")
