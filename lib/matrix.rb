@@ -35,6 +35,10 @@ class Matrix
     end
   end
 
+  def transpose
+    self.class.new(rows.transpose)
+  end
+
   def size
     rows.size
   end
@@ -42,8 +46,8 @@ class Matrix
   private def matrix_product(other)
     product = Matrix.new(Array.new(size) { [] })
 
-    rows.size.times do |row|
-      rows.size.times do |col|
+    size.times do |row|
+      size.times do |col|
         product[row][col] = rows[row][0] * other.rows[0][col] +
                             rows[row][1] * other.rows[1][col] +
                             rows[row][2] * other.rows[2][col] +
@@ -57,7 +61,7 @@ class Matrix
   private def tuple_product(tuple)
     members = Array.new(4)
 
-    rows.size.times do |row|
+    size.times do |row|
       members[row] = rows[row][0] * tuple.x +
                      rows[row][1] * tuple.y +
                      rows[row][2] * tuple.z +
