@@ -36,6 +36,8 @@ class Tuple
   end
 
   def +(other)
+    # transpose will first put all the pairs that need to be summed together
+    # for easy summing:  [1,2,3], [4,5,6] => [1,4], [2,5], [3,6]
     Tuple.new(*[self, other].transpose.map(&:sum))
   end
 
