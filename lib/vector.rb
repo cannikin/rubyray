@@ -9,6 +9,10 @@ class Vector < Tuple
     @list << 0.0
   end
 
+  def -@
+    Vector.new(0, 0, 0) - self
+  end
+
   def magnitude
     Math.sqrt(@list.map { |a| a ** 2 }.sum)
   end
