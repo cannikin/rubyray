@@ -1,8 +1,10 @@
 require_relative './test_helper'
+require_relative '../lib/tuple'
 require_relative '../lib/vector'
 
 class VectorTest < Minitest::Test
 
+  # point_vector_math
   test 'adding two vectors is a vector' do
     vector1 = Vector.new(3, 2, 1)
     vector2 = Vector.new(5, 6, 7)
@@ -12,6 +14,7 @@ class VectorTest < Minitest::Test
     assert_equal Vector.new(8, 8, 8), result
   end
 
+  # point_vector_math
   test 'subtracing two vectors is a vector' do
     vector1 = Vector.new(3, 2, 1)
     vector2 = Vector.new(5, 6, 7)
@@ -55,9 +58,9 @@ class VectorTest < Minitest::Test
     assert_equal vector, Vector.new(1, 0, 0)
 
     vector = Vector.new(1, 2, 3).normalize
-    assert_in_epsilon vector.x, 0.26726, 0.00001
-    assert_in_epsilon vector.y, 0.53452, 0.00001
-    assert_in_epsilon vector.z, 0.80178, 0.00001
+    assert_in_epsilon vector.x, 0.26726, Tuple::EPSILON
+    assert_in_epsilon vector.y, 0.53452, Tuple::EPSILON
+    assert_in_epsilon vector.z, 0.80178, Tuple::EPSILON
   end
 
   test "normalized tuple's magnitude is always 1.0" do
