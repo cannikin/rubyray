@@ -26,9 +26,11 @@ class TupleTest < Minitest::Test
     tuple1 = Tuple.new(4.3, -4.2, 3.1, 0.0)
     tuple2 = Tuple.new(4.3, -4.2, 3.1, 0.0)
     tuple3 = Tuple.new(3.4, -2.4, 1.3, 0.0)
+    tuple4 = Tuple.new(3.4, -2.4, 1.3, 1)
 
     assert tuple1 == tuple2
     assert tuple1 != tuple3
+    assert tuple3 != tuple4
   end
 
   test '#to_a' do

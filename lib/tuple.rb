@@ -1,5 +1,8 @@
 class Tuple
 
+  # two floats with a difference less than this should be considered equal
+  EPSILON = 0.00001
+
   def initialize(*args)
     @list = args.map(&:to_f)
   end
@@ -26,7 +29,10 @@ class Tuple
   alias :to_ary :to_a
 
   def ==(other)
-    self.to_a == other.to_a
+    (x - other.x).abs <= EPSILON and
+    (y - other.y).abs <= EPSILON and
+    (z - other.z).abs <= EPSILON and
+    w == other.w
   end
 
   def +(other)
