@@ -10,6 +10,12 @@ class VectorTest < Minitest::Test
     assert_equal 0.0, vector.w
   end
 
+  test 'multipling a vector' do
+    vector = Vector.new(1, -2, 3)
+
+    assert_equal(Vector.new(2, -4, 6), vector * 2)
+  end
+
   test 'negating a vector' do
     vector = Vector.new(1, -2, 3)
 
