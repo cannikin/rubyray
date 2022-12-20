@@ -43,6 +43,44 @@ class Matrix
     rows.size
   end
 
+  def determinant
+    det = 0
+
+    if size == 2
+      det = rows[0][0] * rows[1][1] - rows[0][1] * rows[1][0]
+    else
+      size.times do |col|
+        det += rows[0][col] * cofactor(0, col)
+      end
+    end
+
+    return det
+  end
+
+  def sub(row, col)
+    submatrix = Matrix.new(rows.clone.map(&:clone))
+
+    submatrix.rows.delete_at(row)
+    submatrix.rows.each do |row|
+      row.delete_at(col)
+    end
+
+    return submatrix
+  end
+
+  def minor(row, col)
+    submatrix = sub(row, col)
+
+    # puts submatrix.inspect
+    submatrix.determinant
+  end
+
+  def cofactor(row, col)
+    minor = minor(row, col)
+
+    (row + col).odd? ? -minor : minor
+  end
+
   private def matrix_product(other)
     product = Matrix.new(Array.new(size) { [] })
 

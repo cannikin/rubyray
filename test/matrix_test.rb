@@ -159,4 +159,103 @@ class MatrixTest < Minitest::Test
     assert_equal transposed, original.transpose
   end
 
+  test '#transpose with the identity matrix is still the identity matrix' do
+    assert_equal Matrix.identity.transpose, Matrix.identity
+  end
+
+  test '#determinant of a 2x2 matrix' do
+    matrix = Matrix.new([
+      [1, 5],
+      [-3, 2]
+    ])
+
+    assert_equal 17, matrix.determinant
+  end
+
+  test '#determinant of a 3x3 matrix' do
+    matrix = Matrix.new([
+      [1, 2, 6],
+      [-5, 8, -4],
+      [2, 6, 4]
+    ])
+
+    assert_equal 56,   matrix.cofactor(0, 0)
+    assert_equal 12,   matrix.cofactor(0, 1)
+    assert_equal -46,  matrix.cofactor(0, 2)
+    assert_equal -196, matrix.determinant
+  end
+
+  test '#determinant of a 4x4 matrix' do
+    matrix = Matrix.new([
+      [-2, -8, 3, 5],
+      [-3, 1, 7, 3],
+      [1, 2, -9, 6],
+      [-6, 7, 7, -9]
+    ])
+
+    assert_equal 690,   matrix.cofactor(0, 0)
+    assert_equal 447,   matrix.cofactor(0, 1)
+    assert_equal 210,   matrix.cofactor(0, 2)
+    assert_equal 51,    matrix.cofactor(0, 3)
+    assert_equal -4071, matrix.determinant
+
+  end
+
+  test '#sub returns ths submatrix of a 3x3 matrix' do
+    matrix = Matrix.new([
+      [1, 5, 0],
+      [-3, 2, 7],
+      [0, 6, -3]
+    ])
+
+    submatrix = Matrix.new([
+      [-3, 2],
+      [0, 6]
+    ])
+
+    assert_equal submatrix, matrix.sub(0, 2)
+  end
+
+  test '#sub returns ths submatrix of a 4x4 matrix' do
+    matrix = Matrix.new([
+      [-6, 1, 1, 6],
+      [-8, 5, 8, 6],
+      [-1, 0, 0, 2],
+      [-7, 1, -1, 1]
+    ])
+
+    submatrix = Matrix.new([
+      [-6, 1, 6],
+      [-8, 8, 6],
+      [-7, -1, 1]
+    ])
+
+    assert_equal submatrix, matrix.sub(2, 1)
+  end
+
+  test '#minor of a 3x3 matrix' do
+    matrix = Matrix.new([
+      [3, 5, 0],
+      [2, -1, -7],
+      [6, -1, 5],
+    ])
+    submatrix = matrix.sub(1, 0)
+
+    assert_equal 25, submatrix.determinant
+    assert_equal 25, matrix.minor(1, 0)
+  end
+
+  test '#cofactor of a 3x3 matrix' do
+    matrix = Matrix.new([
+      [3, 5, 0],
+      [2, -1, -7],
+      [6, -1, 5],
+    ])
+
+    assert_equal -12, matrix.minor(0, 0)
+    assert_equal -12, matrix.cofactor(0, 0)
+    assert_equal 25, matrix.minor(1, 0)
+    assert_equal -25, matrix.cofactor(1, 0)
+  end
+
 end
