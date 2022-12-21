@@ -23,7 +23,18 @@ class Matrix
   end
 
   def ==(other)
-    rows == other.rows
+    same = true
+
+    size.times do |row|
+      size.times do |col|
+        if (rows[row][col] - other.rows[row][col]).abs > Tuple::EPSILON
+          same = false
+          break
+        end
+      end
+    end
+
+    return same
   end
 
   def *(other)
