@@ -68,8 +68,12 @@ class Matrix
     return det
   end
 
+  def clone
+    Matrix.new(rows.clone.map(&:clone))
+  end
+
   def sub(row, col)
-    submatrix = Matrix.new(rows.clone.map(&:clone))
+    submatrix = clone
 
     submatrix.rows.delete_at(row)
     submatrix.rows.each do |row|
