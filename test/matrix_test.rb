@@ -1,5 +1,6 @@
 require_relative './test_helper'
 require_relative '../lib/matrix'
+require_relative '../lib/tuple'
 
 class MatrixTest < Minitest::Test
 
@@ -181,8 +182,8 @@ class MatrixTest < Minitest::Test
 
     assert_equal 56,   matrix.cofactor(0, 0)
     assert_equal 12,   matrix.cofactor(0, 1)
-    assert_equal -46,  matrix.cofactor(0, 2)
-    assert_equal -196, matrix.determinant
+    assert_equal(-46,  matrix.cofactor(0, 2))
+    assert_equal(-196, matrix.determinant)
   end
 
   test '#determinant of a 4x4 matrix' do
@@ -197,7 +198,7 @@ class MatrixTest < Minitest::Test
     assert_equal 447,   matrix.cofactor(0, 1)
     assert_equal 210,   matrix.cofactor(0, 2)
     assert_equal 51,    matrix.cofactor(0, 3)
-    assert_equal -4071, matrix.determinant
+    assert_equal(-4071, matrix.determinant)
 
   end
 
@@ -252,10 +253,89 @@ class MatrixTest < Minitest::Test
       [6, -1, 5],
     ])
 
-    assert_equal -12, matrix.minor(0, 0)
-    assert_equal -12, matrix.cofactor(0, 0)
+    assert_equal(-12, matrix.minor(0, 0))
+    assert_equal(-12, matrix.cofactor(0, 0))
     assert_equal 25, matrix.minor(1, 0)
-    assert_equal -25, matrix.cofactor(1, 0)
+    assert_equal(-25, matrix.cofactor(1, 0))
   end
+
+  test '#invertable? tests for ability to invert' do
+    matrix = Matrix.new([
+      [6, 4, 4, 4],
+      [5, 5, 7, 6],
+      [4, -9, 3, -7],
+      [9, 1, 7, -6]
+    ])
+
+    assert_equal(-2120, matrix.determinant)
+    assert matrix.invertable?
+
+    matrix = Matrix.new([
+      [-4, 2, -2, -3],
+      [9, 6, 2, 6],
+      [0, -5, 1, -5],
+      [0, 0, 0, 0]
+    ])
+
+    assert_equal 0, matrix.determinant
+    assert !matrix.invertable?
+  end
+
+  test '#inverse of a matrix' do
+    matrix = Matrix.new([
+      [-5, 2, 6, -8],
+      [1, -5, 1, 8],
+      [7, 7, -6, -7],
+      [1, -3, 7, 4]
+    ])
+    inverse = matrix.inverse
+
+    assert_equal 532, matrix.determinant
+    assert_equal(-160, matrix.cofactor(2, 3))
+    assert_in_delta (-160.0 / 532.0), inverse[3][2], Tuple::EPSILON
+    assert_equal 105, matrix.cofactor(3, 2)
+    assert_in_delta (105.0 / 532.0), inverse[2][3], Tuple::EPSILON
+    assert_equal(Matrix.new([
+      [0.21805,   0.45113,  0.24060, -0.04511],
+      [-0.80827, -1.45677, -0.44361,  0.52068],
+      [-0.07895, -0.22368, -0.05263,  0.19737],
+      [-0.52256, -0.81391, -0.30075,  0.30639]
+    ]), inverse)
+
+    # another test to be sure
+    matrix = Matrix.new([
+      [8, -5, 9, 2],
+      [7, 5, 6, 1],
+      [-6, 0, 9, 6],
+      [-3, 0, -9, -4]
+    ])
+
+    inverse = Matrix.new([
+      [-0.15385, -0.15385, -0.28205, -0.53846],
+      [-0.07692, 0.12308, 0.02564, 0.03077],
+      [0.35897, 0.35897, 0.4359, 0.92308],
+      [-0.69231, -0.69231, -0.76923, -1.92308]
+    ])
+
+    assert_equal inverse, matrix.inverse
+
+    # another test
+    matrix = Matrix.new([
+      [9, 3, 0, 9],
+      [-5, -2, -6, -3],
+      [-4, 9, 6, 4],
+      [-7, 6, 6, 2]
+    ])
+
+    inverse = Matrix.new([
+      [-0.04074, -0.07778, 0.14444, -0.22222],
+      [-0.07778, 0.03333, 0.36667, -0.33333],
+      [-0.02901, -0.1463, -0.10926, 0.12963],
+      [0.17778, 0.06667, -0.26667, 0.33333]
+    ])
+
+    assert_equal inverse, matrix.inverse
+  end
+
 
 end

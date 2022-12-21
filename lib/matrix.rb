@@ -93,7 +93,26 @@ class Matrix
   def cofactor(row, col)
     minor = minor(row, col)
 
-    (row + col).odd? ? -minor : minor
+    (row + col).odd? ? -minor.to_f : minor.to_f
+  end
+
+  def invertable?
+    determinant != 0
+  end
+
+  def inverse
+    raise NotInvertableError if !invertable?
+
+    inverted = clone
+
+    size.times do |row|
+      size.times do |col|
+        co = cofactor(row, col).to_f
+        inverted[col][row] = (co / determinant)
+      end
+    end
+
+    return inverted
   end
 
   private def matrix_product(other)

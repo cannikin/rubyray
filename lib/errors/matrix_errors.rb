@@ -8,4 +8,11 @@ class Matrix
 
   end
 
+  class NotInvertableError < StandardError
+
+    def initialize
+      super("Matrix is not invertable")
+    end
+
+  end
 end
