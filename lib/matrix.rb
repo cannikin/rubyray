@@ -18,6 +18,35 @@ class Matrix
     @rows = rows
   end
 
+  # format matrixes nicer than default Array#inspect output
+  def to_s
+    # figure out longest number
+    largest = 1
+    rows.each do |row|
+      row.each do |col|
+        length = col.round(5).to_s.length
+        length += 1 if col < 0
+        largest = length if length > largest
+      end
+    end
+
+    # actually print output
+    output = []
+    gap = ((largest + 1) * size - 2)
+    output.push("┌─#{' ' * gap}─┐")
+    rows.each do |row|
+      line = '│'
+      row.each do |col|
+        line += "#{col.round(5).to_s.rjust(largest)} "
+      end
+      line += '│'
+      output.push(line)
+    end
+    output.push("└─#{' ' * gap}─┘")
+
+    return output.join("\n")
+  end
+
   def [](index)
     rows[index]
   end
