@@ -188,7 +188,7 @@ class Matrix
                      rows[row][3] * tuple.w
     end
 
-    Tuple.new(*members)
+    Tuple.new(*members).to_concrete_type
   end
 
 end

@@ -144,7 +144,7 @@ class MatrixTest < Minitest::Test
     ]), product
   end
 
-  test '#* multipling a matrix and a tuple' do
+  test '#* multipling a matrix and a tuple returns a point' do
     matrix = Matrix.new([
       [1, 2, 3, 4],
       [2, 4, 4, 2],
@@ -154,7 +154,22 @@ class MatrixTest < Minitest::Test
     tuple = Tuple.new(1, 2, 3, 1)
     product = matrix * tuple
 
-    assert_equal Tuple.new(18, 24, 33, 1), product
+    assert_instance_of Point, product
+    assert_equal Point.new(18, 24, 33), product
+  end
+
+  test '#* multipling a matrix and a point returns a point' do
+    matrix = Matrix.new([
+      [1, 2, 3, 4],
+      [2, 4, 4, 2],
+      [8, 6, 4, 1],
+      [0, 0, 0, 1]
+    ])
+    tuple = Point.new(1, 2, 3)
+    product = matrix * tuple
+
+    assert_instance_of Point, product
+    assert_equal Point.new(18, 24, 33), product
   end
 
   test '#* multipling a matrix by an identity matrix returns the same matrix' do
