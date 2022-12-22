@@ -1,3 +1,4 @@
+require 'simplecov'
 require 'minitest/autorun'
 require 'minitest/reporters'
 Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(:color => true)]
@@ -15,3 +16,5 @@ def test(name, &block)
     end
   end
 end
+
+SimpleCov.start
