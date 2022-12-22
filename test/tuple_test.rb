@@ -88,4 +88,40 @@ class TupleTest < Minitest::Test
     assert_equal(Tuple.new(-1, 2, -3, 4), -tuple)
   end
 
+  test '#to_point' do
+    tuple = Tuple.new(1,2,3,1)
+
+    assert_equal Point.new(1,2,3), tuple.to_point
+  end
+
+  test '#to_vector' do
+    tuple = Tuple.new(3,4,5,0)
+
+    assert_equal Vector.new(3,4,5), tuple.to_vector
+  end
+
+  test '#point?' do
+    assert Tuple.new(1,2,3,1).point?
+    assert !Tuple.new(1,2,3,0).point?
+  end
+
+  test '#vector?' do
+    assert Tuple.new(1,2,3,0).vector?
+    assert !Tuple.new(1,2,3,1).vector?
+  end
+
+  test '#type' do
+    assert_equal :point, Tuple.new(1,2,3,1).type
+    assert_equal :vector, Tuple.new(1,2,3,0).type
+    assert_equal :unknown, Tuple.new(1,2,3,2).type
+  end
+
+  test '#to_concrete_type' do
+    assert_equal Point.new(1,2,3), Tuple.new(1,2,3,1).to_concrete_type
+    assert_equal Vector.new(1,2,3), Tuple.new(1,2,3,0).to_concrete_type
+
+    tuple = Tuple.new(1,2,3,2)
+    assert_equal tuple, tuple.to_concrete_type
+  end
+
 end

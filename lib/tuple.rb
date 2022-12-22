@@ -57,4 +57,32 @@ class Tuple
     Tuple.new(0, 0, 0, 0) - self
   end
 
+  def to_point
+    Point.new(*@list)
+  end
+
+  def to_vector
+    Vector.new(*@list)
+  end
+
+  def point?
+    w == 1
+  end
+
+  def vector?
+    w == 0
+  end
+
+  def type
+    return :point  if point?
+    return :vector if vector?
+    return :unknown
+  end
+
+  def to_concrete_type
+    return to_point if point?
+    return to_vector if vector?
+    return self
+  end
+
 end
