@@ -65,11 +65,10 @@ class Matrix
     same = true
 
     size.times do |row|
+      break if !same
       size.times do |col|
-        if (rows[row][col] - other.rows[row][col]).abs > Tuple::EPSILON
-          same = false
-          break
-        end
+        break if !same
+        same = (rows[row][col] - other.rows[row][col]).abs <= Tuple::EPSILON
       end
     end
 
