@@ -1,0 +1,6 @@
+--clear
+--quiet
+--exit
+--dir="lib"
+--dir="test"
+rake
