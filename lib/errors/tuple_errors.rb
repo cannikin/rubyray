@@ -8,4 +8,20 @@ class Tuple
 
   end
 
+  class NotPointError < StandardError
+
+    def initialize(w)
+      super("Tuple with w #{w} is not a point")
+    end
+
+  end
+
+  class NotVectorError < StandardError
+
+    def initialize(w)
+      super("Tuple with w #{w} is not a vector")
+    end
+
+  end
+
 end

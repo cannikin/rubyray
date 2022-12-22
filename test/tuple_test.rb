@@ -103,11 +103,15 @@ class TupleTest < Minitest::Test
   test '#point?' do
     assert Tuple.new(1,2,3,1).point?
     assert !Tuple.new(1,2,3,0).point?
+
+    assert_raises(Tuple::NotPointError) { Tuple.new(1,2,3,0).to_point }
   end
 
   test '#vector?' do
     assert Tuple.new(1,2,3,0).vector?
     assert !Tuple.new(1,2,3,1).vector?
+
+    assert_raises(Tuple::NotVectorError) { Tuple.new(1,2,3,1).to_vector }
   end
 
   test '#type' do
