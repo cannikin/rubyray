@@ -337,5 +337,22 @@ class MatrixTest < Minitest::Test
     assert_equal inverse, matrix.inverse
   end
 
+  test 'a multiplied matrix can be unmultiplied by the inverse' do
+    matrixA = Matrix.new([
+      [3, -9, 7, 3],
+      [3, -8, 2, -9],
+      [-4, 4, 4, 1],
+      [-6, 5, -1, 1]
+    ])
+    matrixB = Matrix.new([
+      [8, 2, 2, 2],
+      [3, -1, 7, 0],
+      [7, 0, 5, 4],
+      [6, -2, 0, 5]
+    ])
+    matrixC = matrixA * matrixB
+
+    assert_equal matrixA, matrixC * matrixB.inverse
+  end
 
 end
