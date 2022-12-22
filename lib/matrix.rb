@@ -143,11 +143,24 @@ class Matrix
     size.times do |row|
       size.times do |col|
         co = cofactor(row, col).to_f
-        inverted[col][row] = (co / determinant)
+        inverted[col][row] = co / determinant
       end
     end
 
     return inverted
+  end
+
+  # not used because we trust that the delta check in == considers float
+  # rounding errors to be == 0
+  private def round_to_zero(&block)
+    output = yield
+
+    # check for zero
+    if output.abs < Tuple::EPSILON
+      return 0
+    else
+      return output
+    end
   end
 
   private def matrix_product(other)
