@@ -95,6 +95,32 @@ class MatrixTest < Minitest::Test
     assert matrixA != matrixB
   end
 
+  test '#== compares two matrixes within a delta' do
+    # within delta
+    matrixA = Matrix.new([
+      [0.00002, 1],
+      [2, -3],
+    ])
+    matrixB = Matrix.new([
+      [0.00003, 1],
+      [2, -3],
+    ])
+
+    assert matrixA == matrixB
+
+    # outside delta
+    matrixA = Matrix.new([
+      [0.00002, 1],
+      [2, -3],
+    ])
+    matrixB = Matrix.new([
+      [0.000031, 1],
+      [2, -3],
+    ])
+
+    assert matrixA != matrixB
+  end
+
   test '#* multipling two matrixes' do
     matrixA = Matrix.new([
       [1, 2, 3, 4],
