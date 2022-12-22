@@ -5,13 +5,15 @@ class Matrix
 
   attr_reader :rows
 
-  def self.identity
-    self.new([
-      [1, 0, 0, 0],
-      [0, 1, 0, 0],
-      [0, 0, 1, 0],
-      [0, 0, 0, 1]
-    ])
+  def self.identity(size = 4)
+    base = []
+    size.times do |count|
+      row = Array.new(size, 0)
+      row[count] = 1
+      base.push(row)
+    end
+
+    self.new(base)
   end
 
   def initialize(rows)
@@ -19,6 +21,12 @@ class Matrix
   end
 
   # format matrixes nicer than default Array#inspect output
+  #
+  # ┌─     ─┐
+  # │ 3, -1 │
+  # │ 2,  6 │
+  # └─     ─┘
+
   def to_s
     # figure out longest number
     largest = 1
@@ -30,12 +38,14 @@ class Matrix
       end
     end
 
-    # actually print output
+    # actually format output
     output = []
     gap = ((largest + 1) * size - 2)
+    gap += 1 if largest == 1
     output.push("┌─#{' ' * gap}─┐")
     rows.each do |row|
       line = '│'
+      line += ' ' if largest == 1
       row.each do |col|
         line += "#{col.round(5).to_s.rjust(largest)} "
       end
@@ -113,10 +123,7 @@ class Matrix
   end
 
   def minor(row, col)
-    submatrix = sub(row, col)
-
-    # puts submatrix.inspect
-    submatrix.determinant
+    sub(row, col).determinant
   end
 
   def cofactor(row, col)

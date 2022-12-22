@@ -6,6 +6,13 @@ class MatrixTest < Minitest::Test
 
   test '.identity returns an identity matrix' do
     assert_equal Matrix.new([
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1],
+    ]), Matrix.identity(3)
+
+    # defaults to 4x4
+    assert_equal Matrix.new([
       [1, 0, 0, 0],
       [0, 1, 0, 0],
       [0, 0, 1, 0],
