@@ -25,8 +25,56 @@ class Matrix
     ])
   end
 
+  def self.scale(x, y, z)
+    self.new([
+      [x, 0, 0, 0],
+      [0, y, 0, 0],
+      [0, 0, z, 0],
+      [0, 0, 0, 1]
+    ])
+  end
+
+  def self.rotate_x(rad)
+    self.new([
+      [1, 0,             0,              0],
+      [0, Math.cos(rad), -Math.sin(rad), 0],
+      [0, Math.sin(rad), Math.cos(rad),  0],
+      [0, 0,             0,              1]
+    ])
+  end
+
+  def self.rotate_y(rad)
+    self.new([
+      [Math.cos(rad),  0, Math.sin(rad),  0],
+      [0,              1, 0,              0],
+      [-Math.sin(rad), 0, Math.cos(rad),  0],
+      [0,              0, 0,              1]
+    ])
+  end
+
+  def self.rotate_z(rad)
+    self.new([
+      [Math.cos(rad), -Math.sin(rad), 0, 0],
+      [Math.sin(rad), Math.cos(rad),  0, 0],
+      [0,             0,              1, 0],
+      [0,             0,              0, 1]
+    ])
+  end
+
   def translate(*args)
     self * self.class.translate(*args)
+  end
+
+  def scale(*args)
+    self * self.class.scale(*args)
+  end
+
+  def rotate_x(*args)
+    self * self.class.rotate_x(*args)
+  end
+
+  def rotate_y(*args)
+    self * self.class.rotate_y(*args)
   end
 
   def initialize(rows)
