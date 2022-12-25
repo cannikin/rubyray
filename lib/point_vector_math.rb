@@ -1,5 +1,7 @@
 require_relative 'errors/tuple_errors'
 
+# Slight tweak to Tuple math so that adding points/vectors returns actual
+# Point/Vector instances instead of generic Tuple
 module PointVectorMath
 
   W_MAP = {
@@ -15,7 +17,14 @@ module PointVectorMath
     tuple_to_concrete_class(super)
   end
 
-  # Returns either a proper Point or Vector depending on the W of the given Tuple
+  def *(*args)
+    tuple_to_concrete_class(super)
+  end
+
+  def /(*args)
+    tuple_to_concrete_class(super)
+  end
+
   private def tuple_to_concrete_class(tuple)
     if W_MAP[tuple.w]
       Object.const_get(W_MAP[tuple.w]).new(*tuple.to_a[0,3])
