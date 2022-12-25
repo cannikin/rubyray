@@ -17,4 +17,4 @@ def test(name, &block)
   end
 end
 
-SimpleCov.start
+SimpleCov.start if ENV['COVERAGE']
