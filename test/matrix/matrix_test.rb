@@ -1,6 +1,6 @@
-require_relative './test_helper'
-require_relative '../lib/matrix'
-require_relative '../lib/tuple'
+require_relative '../test_helper'
+require_relative '../../lib/matrix'
+require_relative '../../lib/tuple'
 
 class MatrixTest < Minitest::Test
 
