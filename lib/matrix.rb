@@ -61,20 +61,37 @@ class Matrix
     ])
   end
 
+  def self.shear(xy, xz, yx, yz, zx, zy)
+    self.new([
+      [1,  xy, xz, 0],
+      [yx, 1,  yz, 0],
+      [zx, zy, 1,  0],
+      [0,  0,  0,  1]
+    ])
+  end
+
   def translate(*args)
-    self * self.class.translate(*args)
+    self.class.translate(*args) * self
   end
 
   def scale(*args)
-    self * self.class.scale(*args)
+    self.class.scale(*args) * self
   end
 
   def rotate_x(*args)
-    self * self.class.rotate_x(*args)
+    self.class.rotate_x(*args) * self
   end
 
   def rotate_y(*args)
-    self * self.class.rotate_y(*args)
+    self.class.rotate_y(*args) * self
+  end
+
+  def rotate_z(*args)
+    self.class.rotate_z(*args) * self
+  end
+
+  def shear(*args)
+    self.class.shear(*args) * self
   end
 
   def initialize(rows)

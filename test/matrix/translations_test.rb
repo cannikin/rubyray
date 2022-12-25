@@ -134,4 +134,69 @@ class TranslationsTest < Minitest::Test
     assert_equal Point.new(-1, 0, 0), full_quarter * point
   end
 
+  test 'shearing transformation moves x in proportion to y' do
+    transform = Matrix.shear(1, 0, 0, 0, 0, 0)
+    point = Point.new(2, 3, 4)
+
+    assert_equal Point.new(5, 3, 4), transform * point
+  end
+
+  test 'shearing transformation moves x in proportion to z' do
+    transform = Matrix.shear(0, 1, 0, 0, 0, 0)
+    point = Point.new(2, 3, 4)
+
+    assert_equal Point.new(6, 3, 4), transform * point
+  end
+
+  test 'shearing transformation moves y in proportion to x' do
+    transform = Matrix.shear(0, 0, 1, 0, 0, 0)
+    point = Point.new(2, 3, 4)
+
+    assert_equal Point.new(2, 5, 4), transform * point
+  end
+
+  test 'shearing transformation moves y in proportion to z' do
+    transform = Matrix.shear(0, 0, 0, 1, 0, 0)
+    point = Point.new(2, 3, 4)
+
+    assert_equal Point.new(2, 7, 4), transform * point
+  end
+
+  test 'shearing transformation moves z in proportion to x' do
+    transform = Matrix.shear(0, 0, 0, 0, 1, 0)
+    point = Point.new(2, 3, 4)
+
+    assert_equal Point.new(2, 3, 6), transform * point
+  end
+
+  test 'shearing transformation moves z in proportion to y' do
+    transform = Matrix.shear(0, 0, 0, 0, 0, 1)
+    point = Point.new(2, 3, 4)
+
+    assert_equal Point.new(2, 3, 7), transform * point
+  end
+
+  test 'individual transformations are applied in sequence' do
+    point = Point.new(1, 0, 1)
+    rotation = Matrix.rotate_x(Math::PI / 2)
+    scale = Matrix.scale(5, 5, 5)
+    translate = Matrix.translate(10, 5, 7)
+
+    point2 = rotation * point
+    assert_equal Point.new(1, -1, 0), point2
+
+    point3 = scale * point2
+    assert_equal Point.new(5, -5, 0), point3
+
+    point4 = translate * point3
+    assert_equal Point.new(15, 0, 7), point4
+  end
+
+  test 'chained transformations are applied in reverse order' do
+    point = Point.new(1, 0, 1)
+    transform = Matrix.rotate_x(Math::PI / 2).scale(5, 5, 5).translate(10, 5, 7)
+
+    assert_equal Point.new(15, 0, 7), transform * point
+  end
+
 end
