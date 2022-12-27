@@ -85,4 +85,43 @@ class RayTest < Minitest::Test
     assert_instance_of Intersection, intersections[1]
     assert_equal sphere, intersections[1].object
   end
+
+  test 'translating a ray' do
+    ray = Ray.new(Point.new(1, 2, 3), Vector.new(0, 1, 0))
+    matrix = Matrix.translate(3, 4, 5)
+    ray2 = ray.transform(matrix)
+
+    assert_equal Point.new(4, 6, 8), ray2.origin
+    assert_equal Vector.new(0, 1, 0), ray2.direction
+  end
+
+  test 'scaling a ray' do
+    ray = Ray.new(Point.new(1, 2, 3), Vector.new(0, 1, 0))
+    matrix = Matrix.scale(2, 3, 4)
+    ray2 = ray.transform(matrix)
+
+    assert_equal Point.new(2, 6, 12), ray2.origin
+    assert_equal Vector.new(0, 3, 0), ray2.direction
+  end
+
+  test 'intersecting a scaled sphere with a ray' do
+    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
+    sphere = Sphere.new
+    sphere.transform = Matrix.scale(2, 2, 2)
+    intersections = ray.intersect(sphere)
+
+    assert_equal 2, intersections.size
+    assert_equal 3, intersections[0].t
+    assert_equal 7, intersections[1].t
+  end
+
+  test 'intersecting a translated sphere with a ray' do
+    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
+    sphere = Sphere.new
+    sphere.transform = Matrix.translate(5, 0, 0)
+    intersections = ray.intersect(sphere)
+
+    assert_equal 0, intersections.size
+  end
+
 end

@@ -1,4 +1,5 @@
 require_relative './intersection'
+require_relative './intersection_collection'
 
 class Ray
 
@@ -14,13 +15,15 @@ class Ray
   end
 
   def intersect(sphere)
-    sphere_to_ray = origin - sphere.origin
-    a = direction.dot(direction)
-    b = 2 * direction.dot(sphere_to_ray)
+    translated = transform(sphere.transform.inverse)
+
+    sphere_to_ray = translated.origin - sphere.origin
+    a = translated.direction.dot(translated.direction)
+    b = 2 * translated.direction.dot(sphere_to_ray)
     c = sphere_to_ray.dot(sphere_to_ray) -1
     discriminant = b**2 - 4 * a * c
 
-    return [] if discriminant < 0
+    return IntersectionCollection.new if discriminant < 0
 
     t1 = (-b - Math.sqrt(discriminant)) / (2 * a)
     i1 = Intersection.new(t1, sphere)
@@ -28,6 +31,10 @@ class Ray
     i2 = Intersection.new(t2, sphere)
 
     return IntersectionCollection.new(i1, i2)
+  end
+
+  def transform(matrix)
+    self.class.new(matrix * origin, matrix * direction)
   end
 
 end

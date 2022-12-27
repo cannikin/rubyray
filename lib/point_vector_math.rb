@@ -10,22 +10,22 @@ module PointVectorMath
   }
 
   def +(*args)
-    tuple_to_concrete_class(super)
+    to_concrete_class(super)
   end
 
   def -(*args)
-    tuple_to_concrete_class(super)
+    to_concrete_class(super)
   end
 
   def *(*args)
-    tuple_to_concrete_class(super)
+    to_concrete_class(super)
   end
 
   def /(*args)
-    tuple_to_concrete_class(super)
+    to_concrete_class(super)
   end
 
-  private def tuple_to_concrete_class(tuple)
+  private def to_concrete_class(tuple)
     if W_MAP[tuple.w]
       Object.const_get(W_MAP[tuple.w]).new(*tuple.to_a[0,3])
     else

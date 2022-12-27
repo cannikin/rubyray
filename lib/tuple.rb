@@ -59,12 +59,12 @@ class Tuple
 
   def to_point
     raise NotPointError.new(w) if !point?
-    Point.new(*@list)
+    Point.new(x, y, z)
   end
 
   def to_vector
     raise NotVectorError.new(w) if !vector?
-    Vector.new(*@list)
+    Vector.new(x, y, z)
   end
 
   def point?
