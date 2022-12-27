@@ -42,10 +42,5 @@ while (projectile.position.y > 0 and projectile.position.y < canvas.height and p
   print '.'
 end
 
-ppm = PPM.new(canvas)
-filename = File.join(File.expand_path(File.dirname(__FILE__)), 'chapter2.ppm')
-puts "\nWriting #{filename}..."
-File.open(filename, 'w') do |f|
-  f.puts ppm.to_s
-end
-`open #{filename}`
+path = canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter2'))
+`open #{path}`

@@ -15,10 +15,5 @@ rotation = Matrix.rotate_z(-Math::PI / 6)
   point = rotation * point
 end
 
-ppm = PPM.new(canvas)
-filename = File.join(File.expand_path(File.dirname(__FILE__)), 'chapter4.ppm')
-puts "\nWriting #{filename}..."
-File.open(filename, 'w') do |f|
-  f.puts ppm.to_s
-end
-`open #{filename}`
+path = canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter4'))
+`open #{path}`
