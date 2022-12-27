@@ -1,8 +1,6 @@
 require_relative './tuple'
-require_relative './point_vector_math'
 
 class Vector < Tuple
-  include PointVectorMath
 
   def initialize(*args)
     super
