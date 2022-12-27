@@ -1,4 +1,6 @@
 require_relative 'errors/tuple_errors'
+require_relative './point'
+require_relative './vector'
 
 class Tuple
 
