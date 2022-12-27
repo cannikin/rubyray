@@ -1,4 +1,5 @@
 require_relative './color'
+require_relative './ppm'
 require_relative './errors/canvas_errors'
 
 class Canvas
@@ -34,6 +35,16 @@ class Canvas
 
   def read(x, y)
     pixels[y][x]
+  end
+
+  def to_ppm(filename)
+    ppm = PPM.new(self)
+    path = "#{filename}.ppm"
+    puts "\nWriting #{path}..."
+    File.open(path, 'w') do |f|
+      f.puts ppm.to_s
+    end
+    return path
   end
 
 end
