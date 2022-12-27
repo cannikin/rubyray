@@ -124,4 +124,16 @@ class RayTest < Minitest::Test
     assert_equal 0, intersections.size
   end
 
+  test 'hit? convenience function' do
+    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
+    sphere = Sphere.new
+    sphere.transform = Matrix.scale(2, 2, 2)
+    assert ray.hit?(sphere)
+
+    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
+    sphere = Sphere.new
+    sphere.transform = Matrix.translate(5, 0, 0)
+    assert !ray.hit?(sphere)
+  end
+
 end

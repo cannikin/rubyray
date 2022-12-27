@@ -26,11 +26,15 @@ class Ray
     return IntersectionCollection.new if discriminant < 0
 
     t1 = (-b - Math.sqrt(discriminant)) / (2 * a)
-    i1 = Intersection.new(t1, sphere)
     t2 = (-b + Math.sqrt(discriminant)) / (2 * a)
+    i1 = Intersection.new(t1, sphere)
     i2 = Intersection.new(t2, sphere)
 
     return IntersectionCollection.new(i1, i2)
+  end
+
+  def hit?(sphere)
+    intersect(sphere).hit?
   end
 
   def transform(matrix)

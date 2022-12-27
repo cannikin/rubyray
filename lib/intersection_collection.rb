@@ -19,4 +19,8 @@ class IntersectionCollection
     members.find { |int| int.t >= 0 }
   end
 
+  def hit?
+    !hit.nil?
+  end
+
 end

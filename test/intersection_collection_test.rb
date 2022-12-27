@@ -66,4 +66,18 @@ class IntersectionCollectionTest < Minitest::Test
     assert_equal i4, col.hit
   end
 
+  test 'hit? convenience function' do
+    sphere = Sphere.new
+    i1 = Intersection.new(1, sphere)
+    i2 = Intersection.new(2, sphere)
+    col = IntersectionCollection.new(i2, i1)
+    assert col.hit?
+
+    sphere = Sphere.new
+    i1 = Intersection.new(-2, sphere)
+    i2 = Intersection.new(-1, sphere)
+    col = IntersectionCollection.new(i2, i1)
+    assert !col.hit?
+  end
+
 end
