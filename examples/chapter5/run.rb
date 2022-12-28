@@ -24,7 +24,6 @@ canvas_pixels.times do |y|
     print '.'
 
     world_x = -half + pixel_size * x
-
     position = Point.new(world_x, world_y, wall_z)
     ray = Ray.new(ray_origin, (position - ray_origin).normalize)
 
