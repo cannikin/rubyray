@@ -96,7 +96,6 @@ class TupleTest < Minitest::Test
   end
 
   test '#to_vector' do
-    tuple =
     assert_equal Vector.new(3,4,5), Tuple.new(3,4,5,0).to_vector
 
     # converts to vector even if it has a different w
