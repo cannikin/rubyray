@@ -89,29 +89,28 @@ class TupleTest < Minitest::Test
   end
 
   test '#to_point' do
-    tuple = Tuple.new(1,2,3,1)
+    assert_equal Point.new(1,2,3), Tuple.new(1,2,3,1).to_point
 
-    assert_equal Point.new(1,2,3), tuple.to_point
+    # converts to point even if it has a different w
+    assert_equal Point.new(1, 2, 3), Vector.new(1, 2, 3).to_point
   end
 
   test '#to_vector' do
-    tuple = Tuple.new(3,4,5,0)
+    tuple =
+    assert_equal Vector.new(3,4,5), Tuple.new(3,4,5,0).to_vector
 
-    assert_equal Vector.new(3,4,5), tuple.to_vector
+    # converts to vector even if it has a different w
+    assert_equal Vector.new(1, 2, 3), Point.new(1, 2, 3).to_vector
   end
 
   test '#point?' do
     assert Tuple.new(1,2,3,1).point?
     assert !Tuple.new(1,2,3,0).point?
-
-    assert_raises(Tuple::NotPointError) { Tuple.new(1,2,3,0).to_point }
   end
 
   test '#vector?' do
     assert Tuple.new(1,2,3,0).vector?
     assert !Tuple.new(1,2,3,1).vector?
-
-    assert_raises(Tuple::NotVectorError) { Tuple.new(1,2,3,1).to_vector }
   end
 
   test '#type' do

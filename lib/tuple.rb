@@ -1,8 +1,10 @@
 require_relative 'errors/tuple_errors'
-require_relative './point'
-require_relative './vector'
 
 class Tuple
+
+  # prevent circular dependencies
+  autoload :Point, File.join(File.dirname(__FILE__), 'point.rb')
+  autoload :Vector, File.join(File.dirname(__FILE__), 'vector.rb')
 
   # two floats with a difference less than this should be considered equal
   EPSILON = 0.00001
@@ -62,12 +64,10 @@ class Tuple
   end
 
   def to_point
-    raise NotPointError.new(w) if !point?
     Point.new(x, y, z)
   end
 
   def to_vector
-    raise NotVectorError.new(w) if !vector?
     Vector.new(x, y, z)
   end
 
