@@ -33,6 +33,10 @@ class Ray
     return IntersectionCollection.new(i1, i2)
   end
 
+  def hit(sphere)
+    intersect(sphere).hit
+  end
+
   def hit?(sphere)
     intersect(sphere).hit?
   end

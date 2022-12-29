@@ -8,7 +8,7 @@ class Material
                     specular: 0.9,
                     shininess: 200.0 }
 
-  attr_reader :color, :ambient, :diffuse, :specular, :shininess
+  attr_accessor :color, :ambient, :diffuse, :specular, :shininess
 
   def initialize(opts = {})
     options = DEFAULT_ATTRS.merge(opts)
