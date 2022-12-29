@@ -3,6 +3,8 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(:color => true)]
 
+require_relative '../lib/rubyray'
+
 def test(name, &block)
   test_name = "test_#{name.gsub(/\s+/,'_')}".to_sym
   defined = method_defined? test_name
