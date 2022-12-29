@@ -1,8 +1,4 @@
 require_relative './test_helper'
-require_relative '../lib/point_light'
-
-require_relative '../lib/color'
-require_relative '../lib/point'
 
 class PointLightTest < Minitest::Test
 

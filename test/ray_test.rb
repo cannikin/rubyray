@@ -1,8 +1,4 @@
 require_relative './test_helper'
-require_relative '../lib/ray'
-require_relative '../lib/point'
-require_relative '../lib/vector'
-require_relative '../lib/sphere'
 
 class RayTest < Minitest::Test
 

@@ -1,6 +1,4 @@
 require_relative './test_helper'
-require_relative '../lib/intersection_collection'
-require_relative '../lib/intersection'
 
 class IntersectionCollectionTest < Minitest::Test
 

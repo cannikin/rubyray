@@ -1,6 +1,4 @@
 require_relative './test_helper'
-require_relative '../lib/point'
-require_relative '../lib/vector'
 
 class IntegrationTest < Minitest::Test
 

@@ -1,9 +1,4 @@
 require_relative './test_helper'
-require_relative '../lib/shape'
-
-require_relative '../lib/point'
-require_relative '../lib/material'
-require_relative '../lib/matrix'
 
 class ShapeTest < Minitest::Test
 

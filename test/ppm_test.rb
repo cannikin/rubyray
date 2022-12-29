@@ -1,6 +1,4 @@
 require_relative 'test_helper'
-require_relative '../lib/ppm'
-require_relative '../lib/canvas'
 
 class PPMTest < Minitest::Test
 

@@ -1,6 +1,4 @@
 require_relative './test_helper'
-require_relative '../lib/tuple'
-require_relative '../lib/vector'
 
 class VectorTest < Minitest::Test
 
