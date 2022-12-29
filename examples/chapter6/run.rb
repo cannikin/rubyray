@@ -44,10 +44,7 @@ canvas_pixels.times do |y|
 
       canvas.write(x, y, color)
     end
-
   end
-
-  # exit if y == 10
 end
 
 puts
