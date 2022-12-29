@@ -27,8 +27,8 @@ class Ray
 
     t1 = (-b - Math.sqrt(discriminant)) / (2 * a)
     t2 = (-b + Math.sqrt(discriminant)) / (2 * a)
-    i1 = Intersection.new(t1, sphere)
-    i2 = Intersection.new(t2, sphere)
+    i1 = Intersection.new(t1, sphere, self)
+    i2 = Intersection.new(t2, sphere, self)
 
     return IntersectionCollection.new(i1, i2)
   end
