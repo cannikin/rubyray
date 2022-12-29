@@ -185,7 +185,7 @@ class Matrix
   end
 
   def clone
-    Matrix.new(rows.clone.map(&:clone))
+    self.class.new(rows.clone.map(&:clone))
   end
 
   def sub(row, col)
@@ -242,7 +242,7 @@ class Matrix
   end
 
   private def matrix_product(other)
-    product = Matrix.new(Array.new(size) { [] })
+    product = self.class.new(Array.new(size) { [] })
 
     size.times do |row|
       size.times do |col|
