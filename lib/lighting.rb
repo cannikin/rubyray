@@ -1,15 +1,17 @@
+require_relative './color'
+
 class Lighting
 
   def self.light(opts)
     ambient, diffuse, specular =  nil
 
-    opts => { material:, light:, position:, eyev:, normalv: }
+    opts => { material:, light:, point:, eyev:, normalv: }
 
     # combine surface color with the light's color/itensity
     effective_color = material.color * light.intensity
 
     # find the direction to the light source
-    lightv = (light.position - position).normalize
+    lightv = (light.position - point).normalize
 
     # compute the ambient contribution
     ambient = effective_color * material.ambient
