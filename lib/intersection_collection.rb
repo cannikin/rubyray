@@ -10,6 +10,11 @@ class IntersectionCollection
     members[index]
   end
 
+  # returns a new instance of self with all members combined
+  def +(other)
+    self.class.new(*(members + other.members))
+  end
+
   def size
     members.size
   end
