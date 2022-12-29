@@ -76,4 +76,18 @@ class VectorTest < Minitest::Test
     assert_equal Vector.new(1, -2, 1), result2
   end
 
+  test 'reflecting a vector approaching 45°' do
+    vector = Vector.new(1, -1, 0)
+    normal = Vector.new(0, 1, 0)
+
+    assert_equal Vector.new(1, 1, 0), vector.reflect(normal)
+  end
+
+  test 'reflecting a vector off a slanted surface' do
+    vector = Vector.new(0, -1, 0)
+    normal = Vector.new(Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0)
+
+    assert_equal Vector.new(1, 0, 0), vector.reflect(normal)
+  end
+
 end

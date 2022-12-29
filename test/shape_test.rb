@@ -2,6 +2,7 @@ require_relative './test_helper'
 require_relative '../lib/shape'
 
 require_relative '../lib/point'
+require_relative '../lib/material'
 require_relative '../lib/matrix'
 
 class ShapeTest < Minitest::Test
@@ -32,6 +33,22 @@ class ShapeTest < Minitest::Test
     shape.transform = transform
 
     assert_equal transform, shape.transform
+  end
+
+  test 'a shape has a default material' do
+    shape = Shape.new
+    material = Material.new
+
+    assert_instance_of Material, shape.material
+    assert_equal material.color, shape.material.color
+  end
+
+  test 'a shape may be assigned a material' do
+    shape = Shape.new
+    material = Material.new(color: Color.new(1, 0, 0))
+    shape.material = material
+
+    assert_equal material, shape.material
   end
 
 end

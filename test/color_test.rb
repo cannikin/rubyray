@@ -3,6 +3,14 @@ require_relative '../lib/color'
 
 class ColorTest < Minitest::Test
 
+  test '.white returns pure white' do
+    assert_equal Color.new(1, 1, 1), Color.white
+  end
+
+  test '.black returns pure black' do
+    assert_equal Color.new(0, 0, 0), Color.black
+  end
+
   test 'aliases x, y and z to red, green and blue' do
     color = Color.new(-0.5, 0.4, 1.7)
 

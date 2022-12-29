@@ -6,6 +6,14 @@ class Color < Tuple
   alias :green :y
   alias :blue :z
 
+  def self.white
+    self.new(1, 1, 1)
+  end
+
+  def self.black
+    self.new(0, 0, 0)
+  end
+
   def +(*args)
     tuple = super
     Color.new(*tuple)

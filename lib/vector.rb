@@ -36,4 +36,8 @@ class Vector < Tuple
     Vector.new(new_x, new_y, new_z)
   end
 
+  def reflect(normal)
+    self - normal * 2 * dot(normal)
+  end
+
 end
