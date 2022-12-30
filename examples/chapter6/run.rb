@@ -32,15 +32,15 @@ canvas_pixels.times do |y|
     print '.'
 
     world_x = -half + pixel_size * x
-    position = Point.new(world_x, world_y, wall_z)
-    ray = Ray.new(ray_origin, (position - ray_origin).normalize)
+    point = Point.new(world_x, world_y, wall_z)
+    ray = Ray.new(ray_origin, (point - ray_origin).normalize)
     hit = ray.hit(sphere)
 
     if hit
       point = ray.position(hit.t)
-      normal = hit.object.normal_at(point)
-      eye = -ray.direction
-      color = Lighting.light(material: hit.object.material, light: light, position: point, eyev: eye, normalv: normal)
+      normalv = hit.object.normal_at(point)
+      eyev = -ray.direction
+      color = Lighting.light(material: hit.object.material, light: light, point:, eyev:, normalv:)
 
       canvas.write(x, y, color)
     end
