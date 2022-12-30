@@ -1,6 +1,6 @@
 # RubyRay
 
-![Test workflow](https://github.com/cannikin/rubyray/actions/workflows/test/badge.svg)
+![Test workflow](https://github.com/cannikin/rubyray/actions/workflows/test.yml/badge.svg)
 
 Implements a ray tracing engine as described in The Ray Tracer Challenge: https://amzn.to/3d4sunE
 
