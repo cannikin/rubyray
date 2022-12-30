@@ -590,6 +590,13 @@ class MatrixTest < Minitest::Test
 
   test 'chained transformations are applied in reverse order' do
     point = Point.new(1, 0, 1)
+    transform = Matrix.translate(10, 5, 7) * Matrix.scale(5, 5, 5) * Matrix.rotate_x(Math::PI / 2)
+
+    assert_equal Point.new(15, 0, 7), transform * point
+  end
+
+  test 'chained transformations are applied in reverse order with instance methods' do
+    point = Point.new(1, 0, 1)
     transform = Matrix.rotate_x(Math::PI / 2).scale(5, 5, 5).translate(10, 5, 7)
 
     assert_equal Point.new(15, 0, 7), transform * point
