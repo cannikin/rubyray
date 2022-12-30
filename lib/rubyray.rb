@@ -15,10 +15,12 @@ require_relative './intersection_collection.rb'
 
 require_relative './lighting.rb'
 require_relative './material.rb'
-
 require_relative './light.rb'
 require_relative './point_light.rb'
 
+require_relative './camera.rb'
+require_relative './view.rb'
 require_relative './world.rb'
 
 require_relative './canvas.rb'
+require_relative './ppm.rb'
