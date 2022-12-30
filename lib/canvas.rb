@@ -1,8 +1,9 @@
 require_relative './color'
 require_relative './ppm'
-require_relative './errors/canvas_errors'
 
 class Canvas
+
+  class OutOfBoundsError < StandardError; end
 
   attr_reader :pixels
 
@@ -23,7 +24,7 @@ class Canvas
   end
 
   def write(x, y, color)
-    raise OutOfBoundsError.new(x, y) if x < 0 or y < 0 or x > width or y > height
+    raise OutOfBoundsError if x < 0 or y < 0 or x > width or y > height
     pixels[y][x] = color
   end
 

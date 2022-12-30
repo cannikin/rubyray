@@ -1,5 +1,3 @@
-require_relative 'errors/tuple_errors'
-
 class Tuple
 
   # prevent circular dependencies

@@ -1,7 +1,8 @@
-require_relative 'errors/matrix_errors'
 require_relative 'tuple'
 
 class Matrix
+
+  class NotInvertableError < StandardError; end
 
   attr_reader :rows
 
