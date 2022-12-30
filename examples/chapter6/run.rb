@@ -50,5 +50,5 @@ end
 puts
 puts "Took #{Time.now - start_time} seconds"
 
-path = canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter6'))
+path = canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), "render-#{canvas_pixels}x#{canvas_pixels}"))
 `open #{path}`
