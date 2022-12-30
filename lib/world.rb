@@ -19,8 +19,16 @@ class World
     @lights << light
   end
 
+  def add_lights(*lights)
+    lights.each { |light| add_light(light) }
+  end
+
   def add_object(object)
     @objects << object
+  end
+
+  def add_objects(*objects)
+    objects.each { |object| add_object(object) }
   end
 
   def intersect(ray)
