@@ -31,15 +31,21 @@ class Camera
     return Ray.new(origin, direction)
   end
 
-  def render(world)
+  def render(world, options = { progress: false })
     image = Canvas.new(hsize, vsize)
+    start_time = Time.now
 
     vsize.times do |y|
       hsize.times do |x|
+        print '.' if options[:progress]
         ray = ray_for_pixel(x, y)
         color = world.color_at(ray)
         image.write(x, y, color)
       end
+    end
+
+    if options[:progress]
+      puts "Rendered #{hsize * vsize} pixels in #{Time.now - start_time} seconds"
     end
 
     return image
