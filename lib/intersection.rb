@@ -1,3 +1,5 @@
+require_relative './tuple'
+
 class Intersection
 
   attr_reader :t, :object, :ray
@@ -19,6 +21,8 @@ class Intersection
       normalv = -normalv
     end
 
-    return { t:, object:, inside:, point:, eyev:, normalv: }
+    over_point = point + normalv * Tuple::EPSILON
+
+    return { t:, object:, inside:, point:, eyev:, normalv:, over_point: }
   end
 end

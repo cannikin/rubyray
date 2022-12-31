@@ -41,14 +41,16 @@ class World
 
   def shade_hit(comps)
     color = Color.black
-    comps => { object:, point:, eyev:, normalv: }
+    comps => { object:, point:, eyev:, normalv:, over_point: }
+    in_shadow = shadowed?(over_point)
 
     lights.each do |light|
       color += Lighting.light(material: object.material,
                               light:,
                               point:,
                               eyev:,
-                              normalv:)
+                              normalv:,
+                              in_shadow:)
     end
 
     return color
@@ -63,6 +65,17 @@ class World
     end
 
     return color
+  end
+
+  def shadowed?(point)
+    shadow_vector = lights.first.position - point
+    distance = shadow_vector.magnitude
+    direction = shadow_vector.normalize
+    ray = Ray.new(point, direction)
+    intersections = intersect(ray)
+    hit = intersections.hit
+
+    return hit && hit.t < distance
   end
 
 end

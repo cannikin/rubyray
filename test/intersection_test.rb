@@ -45,4 +45,17 @@ class IntersectionTest < Minitest::Test
     assert_equal Vector.new(0, 0, -1), comps[:normalv]
   end
 
+  test 'the hit should offset the point' do
+    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
+    shape = Sphere.new
+    shape.transform = Matrix.translate(0, 0, 1)
+    intersection = Intersection.new(5, shape, ray)
+    comps = intersection.prepare_computations
+
+    puts comps.inspect
+
+    assert comps[:over_point].z < -Tuple::EPSILON / 2
+    assert comps[:point].z > comps[:over_point].z
+  end
+
 end

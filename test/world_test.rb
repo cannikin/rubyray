@@ -59,6 +59,21 @@ class WorldTest < Minitest::Test
     assert_equal Color.new(0.90498, 0.90498, 0.90498), @default_world.shade_hit(comps)
   end
 
+  test 'shade_hit is given an intersection in shadow' do
+    world = World.new
+    world.add_light(PointLight.new(Point.new(0, 0, -10), Color.white))
+    sphere1 = Sphere.new
+    sphere2 = Sphere.new
+    sphere2.transform = Matrix.translate(0, 0, 10)
+    world.add_objects(sphere1, sphere2)
+    ray = Ray.new(Point.new(0, 0, 5), Vector.new(0, 0, 1))
+    intersection = Intersection.new(4, sphere2, ray)
+    comps = intersection.prepare_computations
+    color = world.shade_hit(comps)
+
+    assert_equal Color.new(0.1, 0.1, 0.1), color
+  end
+
   test 'the color when a ray misses' do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 1, 0))
 
@@ -77,6 +92,22 @@ class WorldTest < Minitest::Test
     ray = Ray.new(Point.new(0, 0, 0.75), Vector.new(0, 0, -1))
 
     assert_equal @sphere2.material.color, @default_world.color_at(ray)
+  end
+
+  test 'there is no shadow when nothing is collinear with point and light' do
+    assert !@default_world.shadowed?(Point.new(0, 10, 0))
+  end
+
+  test 'the shadow when an object is between the point and the light' do
+    assert @default_world.shadowed?(Point.new(10, -10, 10))
+  end
+
+  test 'there is no shadow when an object is behind the light' do
+    assert !@default_world.shadowed?(Point.new(-20, 20, -20))
+  end
+
+  test 'there is no shadow when an object is behind the point' do
+    assert !@default_world.shadowed?(Point.new(-2, 2, -2))
   end
 
 end
