@@ -48,7 +48,7 @@ world.add_light(light)
 # render it
 camera = Camera.new(100, 50, Math::PI / 3)
 camera.transform = View.transform(Point.new(0, 1.5, -5), Point.new(0, 1, 0), Vector.new(0, 1, 0))
-canvas = camera.render(world, progress: true)
+canvas = camera.render(world, progress: true, processes: 8)
 
 path = canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), "render-#{camera.hsize}x#{camera.vsize}"))
 `open #{path}`
