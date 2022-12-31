@@ -28,6 +28,12 @@ class Canvas
     pixels[y][x] = color
   end
 
+  def write_range(range, colors)
+    range.each_with_index do |y, i|
+      pixels[y] = colors[i]
+    end
+  end
+
   def fill(color)
     pixels.each do |row|
       row.fill(color)

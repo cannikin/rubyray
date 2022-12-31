@@ -1,3 +1,5 @@
+require 'parallel'
+
 class Camera
 
   attr_reader :hsize, :vsize, :field_of_view, :aspect_ratio
@@ -31,24 +33,74 @@ class Camera
     return Ray.new(origin, direction)
   end
 
-  def render(world, options = { progress: false })
-    image = Canvas.new(hsize, vsize)
+  def render(world, opts = {})
+    options = { progress: false, processes: 1 }.merge(opts)
     start_time = Time.now
 
-    vsize.times do |y|
-      hsize.times do |x|
-        print '.' if options[:progress]
-        ray = ray_for_pixel(x, y)
-        color = world.color_at(ray)
-        image.write(x, y, color)
-      end
+    chunks = row_blocks(options[:processes]).collect do |range|
+      { range:, camera: self, world:, debug: options[:progress] }
     end
 
     if options[:progress]
-      puts "Rendered #{hsize * vsize} pixels in #{Time.now - start_time} seconds"
+      puts "Rendering in #{options[:processes]} processes, #{chunks.collect { |c| c[:range] }.inspect}, started at #{Time.now}"
     end
 
-    return image
+    # render chunks in parallel
+    row_blocks = Parallel.map(chunks, in_processes: options[:processes]) do |chunk|
+      render_chunk(chunk)
+    end
+
+    # reassemble chunks back into a canvas
+    canvas = Canvas.new(hsize, vsize)
+    row_blocks.each do |block|
+      canvas.write_range(block[:range], block[:colors])
+    end
+
+    if options[:progress]
+      puts "\nRendered #{hsize * vsize} pixels in #{Time.now - start_time} seconds"
+    end
+
+    return canvas
+  end
+
+  # given the number of vertical pixels the camera has, split that up into
+  # `count` chunks of equal size (last block might be larger)
+  def row_blocks(count)
+    blocks = []
+    block_size = vsize / count
+
+    start_row = 0
+    count.times do |i|
+      end_row = start_row + block_size - 1
+      blocks << (start_row..end_row)
+      start_row = end_row + 1
+    end
+
+    # if we have rows left over after splitting up chunks, give them to the last
+    # process to compute
+    last_range = blocks.last
+    if last_range.max < vsize
+      extra_rows = vsize - (last_range.max + 1)
+      blocks[blocks.size-1] = last_range.min..(last_range.max + extra_rows)
+    end
+
+    return blocks
+  end
+
+  private def render_chunk(chunk)
+    colors = []
+
+    chunk[:range].min.upto(chunk[:range].max) do |y|
+      colors[y] = []
+      chunk[:camera].hsize.times do |x|
+        print '.' if chunk[:debug]
+        ray = chunk[:camera].ray_for_pixel(x, y)
+        color = chunk[:world].color_at(ray)
+        colors[y][x] = color
+      end
+    end
+
+    return { range: chunk[:range], colors: colors.compact }
   end
 
   private def half_height

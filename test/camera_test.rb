@@ -73,4 +73,25 @@ class CameraTest < Minitest::Test
     assert_equal Color.new(0.38066, 0.47583, 0.2855), image.read(5, 5)
   end
 
+  test 'rows_by_process splits up the rows to render with 1 process' do
+    camera = Camera.new(10, 4, Math::PI / 3)
+    blocks = camera.row_blocks(1)
+
+    assert_equal [(0..3)], blocks
+  end
+
+  test 'row_blocks splits up the rows to render with 2 processes' do
+    camera = Camera.new(10, 4, Math::PI / 3)
+    blocks = camera.row_blocks(2)
+
+    assert_equal [(0..1), (2..3)], blocks
+  end
+
+  test 'row_blocks gives left over rows to the last block' do
+    camera = Camera.new(10, 10, Math::PI / 3)
+    blocks = camera.row_blocks(3)
+
+    assert_equal [(0..2), (3..5), (6..9)], blocks
+  end
+
 end
