@@ -14,6 +14,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    parallel (1.22.1)
     rake (13.0.3)
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
@@ -36,6 +37,7 @@ PLATFORMS
 
 DEPENDENCIES
   minitest-reporters
+  parallel
   rake
   rerun
   simplecov
