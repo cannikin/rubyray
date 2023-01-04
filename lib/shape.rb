@@ -19,11 +19,12 @@ class Shape
     @material = Material.new
   end
 
-  def normal_at(world_point)
-    object_point = transform.inverse * world_point
-    object_normal = object_point - Point.new(0, 0, 0)
-    world_normal = transform.inverse.transpose * object_normal
-
+  # subclasses call super() with a block that defines how to transform a
+  # local point to a local normal
+  def normal_at(world_point, &block)
+    local_point = transform.inverse * world_point
+    local_normal = yield(local_point)
+    world_normal = transform.inverse.transpose * local_normal
     # avoid having to use a submatrix, just hack the normal back into a vector
     world_normal.to_vector.normalize
   end

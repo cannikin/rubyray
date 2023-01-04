@@ -21,4 +21,10 @@ class Sphere < Shape
     return IntersectionCollection.new(i1, i2)
   end
 
+  def normal_at(world_point)
+    super(world_point) do |local_point|
+      local_point - Point.new(0, 0, 0)
+    end
+  end
+
 end
