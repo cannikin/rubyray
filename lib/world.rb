@@ -34,7 +34,7 @@ class World
   def intersect(ray)
     intersects = IntersectionCollection.new
     objects.each do |object|
-      intersects += ray.intersect(object)
+      intersects += object.intersect(ray)
     end
     return intersects
   end

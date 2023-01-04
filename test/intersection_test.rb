@@ -52,8 +52,6 @@ class IntersectionTest < Minitest::Test
     intersection = Intersection.new(5, shape, ray)
     comps = intersection.prepare_computations
 
-    puts comps.inspect
-
     assert comps[:over_point].z < -Tuple::EPSILON / 2
     assert comps[:point].z > comps[:over_point].z
   end

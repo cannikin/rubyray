@@ -23,7 +23,7 @@ class RayTest < Minitest::Test
   test 'a ray intersects a sphere at two points' do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     sphere = Sphere.new
-    intersections = ray.intersect(sphere)
+    intersections = sphere.intersect(ray)
 
     assert_equal 2, intersections.size
     assert_equal 4.0, intersections[0].t
@@ -33,7 +33,7 @@ class RayTest < Minitest::Test
   test 'a ray intersects a sphere at a tangent' do
     ray = Ray.new(Point.new(0, 1, -5), Vector.new(0, 0, 1))
     sphere = Sphere.new
-    intersections = ray.intersect(sphere)
+    intersections = sphere.intersect(ray)
 
     assert_equal 2, intersections.size
     assert_equal 5.0, intersections[0].t
@@ -43,7 +43,7 @@ class RayTest < Minitest::Test
   test 'a ray misses a sphere' do
     ray = Ray.new(Point.new(0, 2, -5), Vector.new(0, 0, 1))
     sphere = Sphere.new
-    intersections = ray.intersect(sphere)
+    intersections = sphere.intersect(ray)
 
     assert_equal 0, intersections.size
   end
@@ -51,27 +51,27 @@ class RayTest < Minitest::Test
   test 'a ray originates inside a sphere' do
     ray = Ray.new(Point.new(0, 0, 0), Vector.new(0, 0, 1))
     sphere = Sphere.new
-    intersections = ray.intersect(sphere)
+    intersections = sphere.intersect(ray)
 
     assert_equal 2, intersections.size
-    assert_equal -1.0, intersections[0].t
+    assert_equal(-1.0, intersections[0].t)
     assert_equal 1.0, intersections[1].t
   end
 
   test 'a sphere is behind a ray' do
     ray = Ray.new(Point.new(0, 0, 5), Vector.new(0, 0, 1))
     sphere = Sphere.new
-    intersections = ray.intersect(sphere)
+    intersections = sphere.intersect(ray)
 
     assert_equal 2, intersections.size
-    assert_equal -6.0, intersections[0].t
-    assert_equal -4.0, intersections[1].t
+    assert_equal(-6.0, intersections[0].t)
+    assert_equal(-4.0, intersections[1].t)
   end
 
   test 'intersect sets the object on the intersection' do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     sphere = Sphere.new
-    intersections = ray.intersect(sphere)
+    intersections = sphere.intersect(ray)
 
     assert_instance_of IntersectionCollection, intersections
     assert_equal 2, intersections.size
@@ -98,38 +98,6 @@ class RayTest < Minitest::Test
 
     assert_equal Point.new(2, 6, 12), ray2.origin
     assert_equal Vector.new(0, 3, 0), ray2.direction
-  end
-
-  test 'intersecting a scaled sphere with a ray' do
-    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
-    sphere = Sphere.new
-    sphere.transform = Matrix.scale(2, 2, 2)
-    intersections = ray.intersect(sphere)
-
-    assert_equal 2, intersections.size
-    assert_equal 3, intersections[0].t
-    assert_equal 7, intersections[1].t
-  end
-
-  test 'intersecting a translated sphere with a ray' do
-    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
-    sphere = Sphere.new
-    sphere.transform = Matrix.translate(5, 0, 0)
-    intersections = ray.intersect(sphere)
-
-    assert_equal 0, intersections.size
-  end
-
-  test 'hit? convenience function' do
-    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
-    sphere = Sphere.new
-    sphere.transform = Matrix.scale(2, 2, 2)
-    assert ray.hit?(sphere)
-
-    ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
-    sphere = Sphere.new
-    sphere.transform = Matrix.translate(5, 0, 0)
-    assert !ray.hit?(sphere)
   end
 
 end
