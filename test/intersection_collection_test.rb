@@ -1,8 +1,7 @@
-require_relative 'test_helper'
+require_relative "test_helper"
 
 class IntersectionCollectionTest < Minitest::Test
-
-  test 'aggregating intersections' do
+  test "aggregating intersections" do
     sphere = Sphere.new
     int1 = Intersection.new(1, sphere)
     int2 = Intersection.new(2, sphere)
@@ -13,7 +12,7 @@ class IntersectionCollectionTest < Minitest::Test
     assert_equal int2, col[1]
   end
 
-  test 'intersections are sorted by increating t' do
+  test "intersections are sorted by increating t" do
     sphere = Sphere.new
     int1 = Intersection.new(4, sphere)
     int2 = Intersection.new(-2, sphere)
@@ -26,7 +25,7 @@ class IntersectionCollectionTest < Minitest::Test
     assert_equal int1, col[2]
   end
 
-  test 'the hit, when all intersections have positive t' do
+  test "the hit, when all intersections have positive t" do
     sphere = Sphere.new
     i1 = Intersection.new(1, sphere)
     i2 = Intersection.new(2, sphere)
@@ -35,7 +34,7 @@ class IntersectionCollectionTest < Minitest::Test
     assert_equal i1, col.hit
   end
 
-  test 'the hit, when some intersections have negative t' do
+  test "the hit, when some intersections have negative t" do
     sphere = Sphere.new
     i1 = Intersection.new(-1, sphere)
     i2 = Intersection.new(1, sphere)
@@ -44,7 +43,7 @@ class IntersectionCollectionTest < Minitest::Test
     assert_equal i2, col.hit
   end
 
-  test 'the hit, when all intersections have negative t' do
+  test "the hit, when all intersections have negative t" do
     sphere = Sphere.new
     i1 = Intersection.new(-2, sphere)
     i2 = Intersection.new(-1, sphere)
@@ -53,7 +52,7 @@ class IntersectionCollectionTest < Minitest::Test
     assert_nil col.hit
   end
 
-  test 'the hit is always the lowest non-negative intersection' do
+  test "the hit is always the lowest non-negative intersection" do
     sphere = Sphere.new
     i1 = Intersection.new(5, sphere)
     i2 = Intersection.new(7, sphere)
@@ -64,7 +63,7 @@ class IntersectionCollectionTest < Minitest::Test
     assert_equal i4, col.hit
   end
 
-  test 'hit? convenience function' do
+  test "hit? convenience function" do
     sphere = Sphere.new
     i1 = Intersection.new(1, sphere)
     i2 = Intersection.new(2, sphere)
@@ -77,5 +76,4 @@ class IntersectionCollectionTest < Minitest::Test
     col = IntersectionCollection.new(i2, i1)
     assert !col.hit?
   end
-
 end

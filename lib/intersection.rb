@@ -1,7 +1,6 @@
-require_relative './tuple'
+require_relative "tuple"
 
 class Intersection
-
   attr_reader :t, :object, :ray
 
   def initialize(t, object, ray = nil)
@@ -23,6 +22,6 @@ class Intersection
 
     over_point = point + normalv * Tuple::EPSILON
 
-    return { t:, object:, inside:, point:, eyev:, normalv:, over_point: }
+    {t:, object:, inside:, point:, eyev:, normalv:, over_point:}
   end
 end

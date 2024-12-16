@@ -1,5 +1,5 @@
-require_relative '../../lib/point'
-require_relative '../../lib/vector'
+require_relative "../../lib/point"
+require_relative "../../lib/vector"
 
 class Projectile
   attr_reader :position, :velocity
@@ -29,7 +29,7 @@ projectile = Projectile.new(Point.new(0, 1, 0), Vector.new(1, 1, 0).normalize)
 environment = Environment.new(Vector.new(0, -0.1, 0), Vector.new(-0.01, 0, 0))
 count = 0
 
-while(projectile.position.y > 0) do
+while projectile.position.y > 0
   projectile = tick(environment, projectile)
   count += 1
   puts "#{count}: #{projectile.position.to_a.inspect}"

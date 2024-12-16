@@ -1,9 +1,8 @@
-require_relative './color'
-require_relative './intersection_collection'
-require_relative './lighting'
+require_relative "color"
+require_relative "intersection_collection"
+require_relative "lighting"
 
 class World
-
   attr_reader :objects, :lights
 
   def initialize(opts = {})
@@ -36,7 +35,7 @@ class World
     objects.each do |object|
       intersects += object.intersect(ray)
     end
-    return intersects
+    intersects
   end
 
   def shade_hit(comps)
@@ -46,14 +45,14 @@ class World
 
     lights.each do |light|
       color += Lighting.light(material: object.material,
-                              light:,
-                              point:,
-                              eyev:,
-                              normalv:,
-                              in_shadow:)
+        light:,
+        point:,
+        eyev:,
+        normalv:,
+        in_shadow:)
     end
 
-    return color
+    color
   end
 
   def color_at(ray)
@@ -64,7 +63,7 @@ class World
       color = shade_hit(intersections.hit.prepare_computations)
     end
 
-    return color
+    color
   end
 
   def shadowed?(point)
@@ -75,7 +74,6 @@ class World
     intersections = intersect(ray)
     hit = intersections.hit
 
-    return hit && hit.t < distance
+    hit && hit.t < distance
   end
-
 end

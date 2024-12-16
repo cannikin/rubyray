@@ -1,26 +1,25 @@
-require_relative 'test_helper'
+require_relative "test_helper"
 
 class VectorTest < Minitest::Test
-
-  test '#w is 0.0' do
+  test "#w is 0.0" do
     vector = Vector.new(1, -2, 3)
 
     assert_equal 0.0, vector.w
   end
 
-  test 'multipling a vector' do
+  test "multipling a vector" do
     vector = Vector.new(1, -2, 3)
 
     assert_equal(Vector.new(2, -4, 6), vector * 2)
   end
 
-  test 'negating a vector' do
+  test "negating a vector" do
     vector = Vector.new(1, -2, 3)
 
     assert_equal(Vector.new(-1, 2, -3), -vector)
   end
 
-  test '#magnitude' do
+  test "#magnitude" do
     vector = Vector.new(1, 0, 0)
     assert_equal 1.0, vector.magnitude
 
@@ -37,7 +36,7 @@ class VectorTest < Minitest::Test
     assert_equal Math.sqrt(14), vector.magnitude
   end
 
-  test '#normalize' do
+  test "#normalize" do
     vector = Vector.new(4, 0, 0).normalize
     assert_equal vector, Vector.new(1, 0, 0)
 
@@ -55,7 +54,7 @@ class VectorTest < Minitest::Test
     assert_equal 1.0, vector.magnitude
   end
 
-  test '#dot' do
+  test "#dot" do
     vector1 = Vector.new(1, 2, 3)
     vector2 = Vector.new(2, 3, 4)
     result = vector1.dot(vector2)
@@ -63,7 +62,7 @@ class VectorTest < Minitest::Test
     assert_equal 20, result
   end
 
-  test '#cross' do
+  test "#cross" do
     vector1 = Vector.new(1, 2, 3)
     vector2 = Vector.new(2, 3, 4)
 
@@ -74,18 +73,17 @@ class VectorTest < Minitest::Test
     assert_equal Vector.new(1, -2, 1), result2
   end
 
-  test 'reflecting a vector approaching 45°' do
+  test "reflecting a vector approaching 45°" do
     vector = Vector.new(1, -1, 0)
     normal = Vector.new(0, 1, 0)
 
     assert_equal Vector.new(1, 1, 0), vector.reflect(normal)
   end
 
-  test 'reflecting a vector off a slanted surface' do
+  test "reflecting a vector off a slanted surface" do
     vector = Vector.new(0, -1, 0)
     normal = Vector.new(Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0)
 
     assert_equal Vector.new(1, 0, 0), vector.reflect(normal)
   end
-
 end

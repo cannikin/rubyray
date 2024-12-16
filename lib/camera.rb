@@ -1,7 +1,6 @@
-require 'parallel'
+require "parallel"
 
 class Camera
-
   attr_reader :hsize, :vsize, :field_of_view, :aspect_ratio
   attr_accessor :transform
 
@@ -30,15 +29,15 @@ class Camera
     origin = inverse * Point.origin
     direction = (pixel - origin).normalize
 
-    return Ray.new(origin, direction)
+    Ray.new(origin, direction)
   end
 
   def render(world, opts = {})
-    options = { progress: false, processes: 1 }.merge(opts)
+    options = {progress: false, processes: 1}.merge(opts)
     start_time = Time.now
 
     chunks = row_blocks(options[:processes]).collect do |range|
-      { range:, camera: self, world:, debug: options[:progress] }
+      {range:, camera: self, world:, debug: options[:progress]}
     end
 
     if options[:progress]
@@ -60,7 +59,7 @@ class Camera
       puts "\nRendered #{hsize * vsize} pixels in #{Time.now - start_time} seconds"
     end
 
-    return canvas
+    canvas
   end
 
   # given the number of vertical pixels the camera has, split that up into
@@ -81,10 +80,10 @@ class Camera
     last_range = blocks.last
     if last_range.max < vsize
       extra_rows = vsize - (last_range.max + 1)
-      blocks[blocks.size-1] = last_range.min..(last_range.max + extra_rows)
+      blocks[blocks.size - 1] = last_range.min..(last_range.max + extra_rows)
     end
 
-    return blocks
+    blocks
   end
 
   private def render_chunk(chunk)
@@ -93,34 +92,29 @@ class Camera
     chunk[:range].min.upto(chunk[:range].max) do |y|
       colors[y] = []
       chunk[:camera].hsize.times do |x|
-        print '.' if chunk[:debug]
+        print "." if chunk[:debug]
         ray = chunk[:camera].ray_for_pixel(x, y)
         color = chunk[:world].color_at(ray)
         colors[y][x] = color
       end
     end
 
-    return { range: chunk[:range], colors: colors.compact }
+    {range: chunk[:range], colors: colors.compact}
   end
 
   private def half_height
-    @half_height ||= begin
-      if aspect_ratio >= 1
-        @half_view / aspect_ratio
-      else
-        @half_view
-      end
+    @half_height ||= if aspect_ratio >= 1
+      @half_view / aspect_ratio
+    else
+      @half_view
     end
   end
 
   private def half_width
-    @half_width ||= begin
-      if aspect_ratio >= 1
-        @half_view
-      else
-        @half_view * aspect_ratio
-      end
+    @half_width ||= if aspect_ratio >= 1
+      @half_view
+    else
+      @half_view * aspect_ratio
     end
   end
-
 end

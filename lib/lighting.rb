@@ -1,11 +1,10 @@
-require_relative './color'
+require_relative "color"
 
 class Lighting
-
   def self.light(opts = {})
-    options = { in_shadow: false }.merge(opts)
+    options = {in_shadow: false}.merge(opts)
     options => { material:, light:, point:, eyev:, normalv:, in_shadow: }
-    ambient, diffuse, specular = Color.black, Color.black, Color.black
+    _, diffuse, specular = Color.black, Color.black, Color.black
 
     # combine surface color with the light's color/itensity
     effective_color = material.color * light.intensity
@@ -29,17 +28,16 @@ class Lighting
 
       # cosine of the angle between the reflection vector and the eye vector
       # negative number means the light reflects away from the eye
-      reflectv = -(lightv).reflect(normalv)
+      reflectv = -lightv.reflect(normalv)
       reflect_dot_eye = reflectv.dot(eyev)
 
       # can we see a specular highlight?
       if reflect_dot_eye > 0
-        factor = reflect_dot_eye ** material.shininess
+        factor = reflect_dot_eye**material.shininess
         specular = light.intensity * material.specular * factor
       end
     end
 
-    return ambient + diffuse + specular
+    ambient + diffuse + specular
   end
-
 end

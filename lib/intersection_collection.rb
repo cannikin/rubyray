@@ -1,5 +1,4 @@
 class IntersectionCollection
-
   attr_reader :members
 
   def initialize(*intersections)
@@ -27,5 +26,4 @@ class IntersectionCollection
   def hit?
     !hit.nil?
   end
-
 end

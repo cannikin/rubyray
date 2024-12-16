@@ -1,7 +1,6 @@
-require_relative 'tuple'
+require_relative "tuple"
 
 class Matrix
-
   class NotInvertableError < StandardError; end
 
   attr_reader :rows
@@ -14,11 +13,11 @@ class Matrix
       base.push(row)
     end
 
-    self.new(base)
+    new(base)
   end
 
   def self.translate(x, y, z)
-    self.new([
+    new([
       [1, 0, 0, x],
       [0, 1, 0, y],
       [0, 0, 1, z],
@@ -27,7 +26,7 @@ class Matrix
   end
 
   def self.scale(x, y, z)
-    self.new([
+    new([
       [x, 0, 0, 0],
       [0, y, 0, 0],
       [0, 0, z, 0],
@@ -36,38 +35,38 @@ class Matrix
   end
 
   def self.rotate_x(rad)
-    self.new([
-      [1, 0,             0,              0],
+    new([
+      [1, 0, 0, 0],
       [0, Math.cos(rad), -Math.sin(rad), 0],
-      [0, Math.sin(rad), Math.cos(rad),  0],
-      [0, 0,             0,              1]
+      [0, Math.sin(rad), Math.cos(rad), 0],
+      [0, 0, 0, 1]
     ])
   end
 
   def self.rotate_y(rad)
-    self.new([
-      [Math.cos(rad),  0, Math.sin(rad),  0],
-      [0,              1, 0,              0],
-      [-Math.sin(rad), 0, Math.cos(rad),  0],
-      [0,              0, 0,              1]
+    new([
+      [Math.cos(rad), 0, Math.sin(rad), 0],
+      [0, 1, 0, 0],
+      [-Math.sin(rad), 0, Math.cos(rad), 0],
+      [0, 0, 0, 1]
     ])
   end
 
   def self.rotate_z(rad)
-    self.new([
+    new([
       [Math.cos(rad), -Math.sin(rad), 0, 0],
-      [Math.sin(rad), Math.cos(rad),  0, 0],
-      [0,             0,              1, 0],
-      [0,             0,              0, 1]
+      [Math.sin(rad), Math.cos(rad), 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 1]
     ])
   end
 
   def self.shear(xy, xz, yx, yz, zx, zy)
-    self.new([
-      [1,  xy, xz, 0],
-      [yx, 1,  yz, 0],
-      [zx, zy, 1,  0],
-      [0,  0,  0,  1]
+    new([
+      [1, xy, xz, 0],
+      [yx, 1, yz, 0],
+      [zx, zy, 1, 0],
+      [0, 0, 0, 1]
     ])
   end
 
@@ -121,19 +120,19 @@ class Matrix
     output = []
     gap = ((largest + 1) * size - 2)
     gap += 1 if largest == 1
-    output.push("┌─#{' ' * gap}─┐")
+    output.push("┌─#{" " * gap}─┐")
     rows.each do |row|
-      line = '│'
-      line += ' ' if largest == 1
+      line = "│"
+      line += " " if largest == 1
       row.each do |col|
         line += "#{col.round(5).to_s.rjust(largest)} "
       end
-      line += '│'
+      line += "│"
       output.push(line)
     end
-    output.push("└─#{' ' * gap}─┘")
+    output.push("└─#{" " * gap}─┘")
 
-    return output.join("\n")
+    output.join("\n")
   end
 
   def [](index)
@@ -151,7 +150,7 @@ class Matrix
       end
     end
 
-    return same
+    same
   end
 
   def *(other)
@@ -182,7 +181,7 @@ class Matrix
       end
     end
 
-    return det
+    det
   end
 
   def clone
@@ -197,7 +196,7 @@ class Matrix
       row.delete_at(col)
     end
 
-    return submatrix
+    submatrix
   end
 
   def minor(row, col)
@@ -226,7 +225,7 @@ class Matrix
       end
     end
 
-    return inverted
+    inverted
   end
 
   # not used because we trust that the delta check in == considers float
@@ -236,9 +235,9 @@ class Matrix
 
     # check for zero
     if output.abs < Tuple::EPSILON
-      return 0
+      0
     else
-      return output
+      output
     end
   end
 
@@ -248,9 +247,9 @@ class Matrix
     size.times do |row|
       size.times do |col|
         product[row][col] = rows[row][0] * other.rows[0][col] +
-                            rows[row][1] * other.rows[1][col] +
-                            rows[row][2] * other.rows[2][col] +
-                            rows[row][3] * other.rows[3][col]
+          rows[row][1] * other.rows[1][col] +
+          rows[row][2] * other.rows[2][col] +
+          rows[row][3] * other.rows[3][col]
       end
     end
 
@@ -262,12 +261,11 @@ class Matrix
 
     size.times do |row|
       members[row] = rows[row][0] * tuple.x +
-                     rows[row][1] * tuple.y +
-                     rows[row][2] * tuple.z +
-                     rows[row][3] * tuple.w
+        rows[row][1] * tuple.y +
+        rows[row][2] * tuple.z +
+        rows[row][3] * tuple.w
     end
 
     Tuple.new(*members).to_concrete_type
   end
-
 end

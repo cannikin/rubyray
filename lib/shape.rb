@@ -1,11 +1,10 @@
-require_relative './point'
-require_relative './matrix'
-require_relative './material'
-require_relative './intersection'
-require_relative './intersection_collection'
+require_relative "point"
+require_relative "matrix"
+require_relative "material"
+require_relative "intersection"
+require_relative "intersection_collection"
 
 class Shape
-
   @@id = 0
 
   attr_reader :id, :origin
@@ -41,5 +40,4 @@ class Shape
   def hit?(ray)
     intersect(ray).hit?
   end
-
 end

@@ -1,8 +1,7 @@
-require_relative 'test_helper'
+require_relative "test_helper"
 
 class ShapeTest < Minitest::Test
-
-  test 'each shape gets a unique id' do
+  test "each shape gets a unique id" do
     shape1 = Shape.new
     shape2 = Shape.new
     shape3 = Shape.new
@@ -12,7 +11,7 @@ class ShapeTest < Minitest::Test
     assert_equal start_id + 2, shape3.id
   end
 
-  test 'a shape is created at the origin' do
+  test "a shape is created at the origin" do
     assert_equal Point.new(0, 0, 0), Shape.new.origin
   end
 
@@ -28,7 +27,7 @@ class ShapeTest < Minitest::Test
     assert_equal transform, shape.transform
   end
 
-  test 'a shape has a default material' do
+  test "a shape has a default material" do
     shape = Shape.new
     material = Material.new
 
@@ -36,7 +35,7 @@ class ShapeTest < Minitest::Test
     assert_equal material.color, shape.material.color
   end
 
-  test 'a shape may be assigned a material' do
+  test "a shape may be assigned a material" do
     shape = Shape.new
     material = Material.new(color: Color.new(1, 0, 0))
     shape.material = material
@@ -44,32 +43,32 @@ class ShapeTest < Minitest::Test
     assert_equal material, shape.material
   end
 
-  test 'the normal on a shape at a point on the x axis' do
+  test "the normal on a shape at a point on the x axis" do
     shape = Shape.new
 
     assert_equal Vector.new(1, 0, 0), shape.normal_at(Point.new(1, 0, 0)) { |point| point }
   end
 
-  test 'the normal on a shape at a point on the y axis' do
+  test "the normal on a shape at a point on the y axis" do
     shape = Shape.new
 
     assert_equal Vector.new(0, 1, 0), shape.normal_at(Point.new(0, 1, 0)) { |point| point }
   end
 
-  test 'the normal on a shape at a point on the z axis' do
+  test "the normal on a shape at a point on the z axis" do
     shape = Shape.new
 
     assert_equal Vector.new(0, 0, 1), shape.normal_at(Point.new(0, 0, 1)) { |point| point }
   end
 
-  test 'the normal on a shape at a nonaxial point' do
+  test "the normal on a shape at a nonaxial point" do
     shape = Shape.new
     loc = Math.sqrt(3) / 3
 
     assert_equal Vector.new(loc, loc, loc), shape.normal_at(Point.new(loc, loc, loc)) { |point| point }
   end
 
-  test 'intersecting a scaled shape with a ray' do
+  test "intersecting a scaled shape with a ray" do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     shape = Shape.new
     shape.transform = Matrix.scale(2, 2, 2)
@@ -78,7 +77,7 @@ class ShapeTest < Minitest::Test
     assert_equal Vector.new(0, 0, 0.5), shape.local_ray(ray).direction
   end
 
-  test 'intersecting a translated shape with a ray' do
+  test "intersecting a translated shape with a ray" do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     shape = Shape.new
     shape.transform = Matrix.translate(5, 0, 0)
@@ -87,7 +86,7 @@ class ShapeTest < Minitest::Test
     assert_equal Vector.new(0, 0, 1), shape.local_ray(ray).direction
   end
 
-  test 'hit returns the intersection hit' do
+  test "hit returns the intersection hit" do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     sphere = Sphere.new
     sphere.transform = Matrix.scale(2, 2, 2)
@@ -96,7 +95,7 @@ class ShapeTest < Minitest::Test
     assert_equal intersections.hit.t, sphere.hit(ray).t
   end
 
-  test 'hit? convenience function' do
+  test "hit? convenience function" do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     sphere = Sphere.new
     sphere.transform = Matrix.scale(2, 2, 2)
@@ -107,5 +106,4 @@ class ShapeTest < Minitest::Test
     sphere.transform = Matrix.translate(5, 0, 0)
     assert !sphere.hit?(ray)
   end
-
 end

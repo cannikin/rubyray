@@ -1,7 +1,7 @@
-require_relative '../../lib/point'
-require_relative '../../lib/vector'
-require_relative '../../lib/canvas'
-require_relative '../../lib/ppm'
+require_relative "../../lib/point"
+require_relative "../../lib/vector"
+require_relative "../../lib/canvas"
+require_relative "../../lib/ppm"
 
 class Projectile
   attr_reader :position, :velocity
@@ -36,10 +36,10 @@ environment = Environment.new(gravity, wind)
 red = Color.new(1, 0, 0)
 canvas = Canvas.new(1100, 350)
 
-while (projectile.position.y > 0 and projectile.position.y < canvas.height and projectile.position.x < canvas.width) do
+while projectile.position.y > 0 and projectile.position.y < canvas.height and projectile.position.x < canvas.width
   canvas.write(projectile.position.x.round, canvas.height - projectile.position.y.round, red)
   projectile = tick(environment, projectile)
-  print '.'
+  print "."
 end
 
-canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter2'))
+canvas.to_ppm(File.join(__dir__, "chapter2"))

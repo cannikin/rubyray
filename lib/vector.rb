@@ -1,7 +1,6 @@
-require_relative './tuple'
+require_relative "tuple"
 
 class Vector < Tuple
-
   def initialize(*args)
     super
     @list << 0.0
@@ -12,7 +11,7 @@ class Vector < Tuple
   end
 
   def magnitude
-    Math.sqrt(@list.map { |a| a ** 2 }.sum)
+    Math.sqrt(@list.map { |a| a**2 }.sum)
   end
 
   # converts a tuple into a unit vector (magnitude of 1)
@@ -22,16 +21,16 @@ class Vector < Tuple
   end
 
   def dot(other)
-    self.x * other.x +
-    self.y * other.y +
-    self.z * other.z +
-    self.w * other.w
+    x * other.x +
+      y * other.y +
+      z * other.z +
+      w * other.w
   end
 
   def cross(other)
-    new_x = self.y * other.z - self.z * other.y
-    new_y = self.z * other.x - self.x * other.z
-    new_z = self.x * other.y - self.y * other.x
+    new_x = y * other.z - z * other.y
+    new_y = z * other.x - x * other.z
+    new_z = x * other.y - y * other.x
 
     Vector.new(new_x, new_y, new_z)
   end
@@ -39,5 +38,4 @@ class Vector < Tuple
   def reflect(normal)
     self - normal * 2 * dot(normal)
   end
-
 end

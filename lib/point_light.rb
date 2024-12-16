@@ -1,5 +1,4 @@
-require_relative './light'
+require_relative "light"
 
 class PointLight < Light
-
 end

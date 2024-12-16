@@ -1,6 +1,5 @@
 class PPM
-
-  IDENTIFIER = 'P3'
+  IDENTIFIER = "P3"
   MAX_COLOR_VALUE = 255
   MIN_COLOR_VALUE = 0
   MAX_LINE_LENGTH = 70
@@ -27,15 +26,14 @@ class PPM
     canvas.pixels.collect do |row|
       row.collect do |col|
         col.to_s(MIN_COLOR_VALUE, MAX_COLOR_VALUE)
-      end.join(' ')
+      end.join(" ")
     end.join("\n")
   end
 
   # wraps lines on spaces only to MAX_LINE_LENGTH
   private def wrap(text)
     text.split("\n").collect! do |line|
-      line.length > MAX_LINE_LENGTH ? line.gsub(/(.{1,#{MAX_LINE_LENGTH}})(\s+|$)/, "\\1\n").strip : line
+      (line.length > MAX_LINE_LENGTH) ? line.gsub(/(.{1,#{MAX_LINE_LENGTH}})(\s+|$)/o, "\\1\n").strip : line
     end * "\n"
   end
-
 end

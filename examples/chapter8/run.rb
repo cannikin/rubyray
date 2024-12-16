@@ -1,4 +1,4 @@
-require_relative '../../lib/rubyray'
+require_relative "../../lib/rubyray"
 
 world = World.new
 
@@ -46,8 +46,8 @@ light = PointLight.new(Point.new(-10, 10, -10), Color.white)
 world.add_light(light)
 
 # render it
-camera = Camera.new(ENV['WIDTH']&.to_i || 100, ENV['HEIGHT']&.to_i || 50, Math::PI / 3)
+camera = Camera.new(ENV["WIDTH"]&.to_i || 100, ENV["HEIGHT"]&.to_i || 50, Math::PI / 3)
 camera.transform = View.transform(Point.new(0, 1.5, -5), Point.new(0, 1, 0), Vector.new(0, 1, 0))
 canvas = camera.render(world, progress: true, processes: 8)
 
-canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), "render-#{camera.hsize}x#{camera.vsize}"))
+canvas.to_ppm(File.join(__dir__, "render-#{camera.hsize}x#{camera.vsize}"))

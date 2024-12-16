@@ -1,17 +1,16 @@
-require_relative './tuple'
+require_relative "tuple"
 
 class Color < Tuple
-
-  alias :red :x
-  alias :green :y
-  alias :blue :z
+  alias_method :red, :x
+  alias_method :green, :y
+  alias_method :blue, :z
 
   def self.white
-    self.new(1, 1, 1)
+    new(1, 1, 1)
   end
 
   def self.black
-    self.new(0, 0, 0)
+    new(0, 0, 0)
   end
 
   def +(*args)
@@ -25,8 +24,8 @@ class Color < Tuple
   end
 
   def *(other)
-    if other.kind_of? Color
-      Color.new(self.red * other.red, self.green * other.green, self.blue * other.blue)
+    if other.is_a? Color
+      Color.new(red * other.red, green * other.green, blue * other.blue)
     else
       tuple = super
       Color.new(*tuple)
@@ -34,7 +33,6 @@ class Color < Tuple
   end
 
   def to_s(min, max)
-    [red, green, blue].map { |color| (color * max).round.clamp(min, max) }.join(' ')
+    [red, green, blue].map { |color| (color * max).round.clamp(min, max) }.join(" ")
   end
-
 end

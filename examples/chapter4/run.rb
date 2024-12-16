@@ -1,7 +1,7 @@
-require_relative '../../lib/point'
-require_relative '../../lib/matrix'
-require_relative '../../lib/canvas'
-require_relative '../../lib/ppm'
+require_relative "../../lib/point"
+require_relative "../../lib/matrix"
+require_relative "../../lib/canvas"
+require_relative "../../lib/ppm"
 
 canvas = Canvas.new(500, 500)
 size = canvas.width / 3
@@ -15,4 +15,4 @@ rotation = Matrix.rotate_z(-Math::PI / 6)
   point = rotation * point
 end
 
-canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter4'))
+canvas.to_ppm(File.join(__dir__, "chapter4"))

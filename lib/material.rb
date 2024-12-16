@@ -1,12 +1,11 @@
-require_relative './color'
+require_relative "color"
 
 class Material
-
-  DEFAULT_ATTRS = { color: Color.new(1, 1, 1),
-                    ambient: 0.1,
-                    diffuse: 0.9,
-                    specular: 0.9,
-                    shininess: 200.0 }
+  DEFAULT_ATTRS = {color: Color.new(1, 1, 1),
+                   ambient: 0.1,
+                   diffuse: 0.9,
+                   specular: 0.9,
+                   shininess: 200.0}
 
   attr_accessor :color, :ambient, :diffuse, :specular, :shininess
 
@@ -19,5 +18,4 @@ class Material
     @specular = options[:specular]
     @shininess = options[:shininess]
   end
-
 end

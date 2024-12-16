@@ -1,8 +1,7 @@
 class Tuple
-
   # prevent circular dependencies
-  autoload :Point, File.join(File.dirname(__FILE__), 'point.rb')
-  autoload :Vector, File.join(File.dirname(__FILE__), 'vector.rb')
+  autoload :Point, File.join(File.dirname(__FILE__), "point.rb")
+  autoload :Vector, File.join(File.dirname(__FILE__), "vector.rb")
 
   # two floats with a difference less than this should be considered equal
   EPSILON = 0.00001
@@ -30,13 +29,13 @@ class Tuple
   def to_a
     @list
   end
-  alias :to_ary :to_a
+  alias_method :to_ary, :to_a
 
   def ==(other)
     (x - other.x).abs <= EPSILON and
-    (y - other.y).abs <= EPSILON and
-    (z - other.z).abs <= EPSILON and
-    w == other.w
+      (y - other.y).abs <= EPSILON and
+      (z - other.z).abs <= EPSILON and
+      w == other.w
   end
 
   def +(other)
@@ -49,12 +48,12 @@ class Tuple
     self.class.new(*[self, other].transpose.map { |arr| arr[0] - arr[1] }).to_concrete_type
   end
 
-  def *(num)
-    self.class.new(*self.to_a.map { |t| t * num.to_f }).to_concrete_type
+  def *(other)
+    self.class.new(*to_a.map { |t| t * other.to_f }).to_concrete_type
   end
 
-  def /(num)
-    self * (1.0 / num)
+  def /(other)
+    self * (1.0 / other)
   end
 
   def -@
@@ -78,15 +77,14 @@ class Tuple
   end
 
   def type
-    return :point  if point?
+    return :point if point?
     return :vector if vector?
-    return :unknown
+    :unknown
   end
 
   def to_concrete_type
     return to_point if point?
     return to_vector if vector?
-    return self
+    self
   end
-
 end

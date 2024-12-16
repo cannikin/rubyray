@@ -1,15 +1,14 @@
-require_relative 'test_helper'
+require_relative "test_helper"
 
 class CanvasTest < Minitest::Test
-
-  test '#initialize width and height' do
+  test "#initialize width and height" do
     canvas = Canvas.new(10, 20)
 
     assert_equal 10, canvas.width
     assert_equal 20, canvas.height
   end
 
-  test '#initialize every pixel as black' do
+  test "#initialize every pixel as black" do
     canvas = Canvas.new(10, 20)
 
     canvas.width.times do |i|
@@ -19,7 +18,7 @@ class CanvasTest < Minitest::Test
     end
   end
 
-  test '#read reads a pixel color' do
+  test "#read reads a pixel color" do
     canvas = Canvas.new(10, 10)
     red = Color.new(1, 0, 0)
     canvas.write(2, 3, red)
@@ -27,7 +26,7 @@ class CanvasTest < Minitest::Test
     assert_equal red, canvas.read(2, 3)
   end
 
-  test '#write sets a pixel color' do
+  test "#write sets a pixel color" do
     canvas = Canvas.new(10, 10)
     red = Color.new(1, 0, 0)
     black = Color.new(0, 0, 0)
@@ -39,7 +38,7 @@ class CanvasTest < Minitest::Test
     assert_equal black, canvas.read(3, 3)
   end
 
-  test '#write raises an error when larger than the canvas' do
+  test "#write raises an error when larger than the canvas" do
     canvas = Canvas.new(2, 2)
     color = Color.new(1, 0, 0)
 
@@ -47,7 +46,7 @@ class CanvasTest < Minitest::Test
     assert_raises(Canvas::OutOfBoundsError) { canvas.write(2, 3, color) }
   end
 
-  test '#write raises an error when x or y are negative' do
+  test "#write raises an error when x or y are negative" do
     canvas = Canvas.new(2, 2)
     color = Color.new(1, 0, 0)
 
@@ -55,7 +54,7 @@ class CanvasTest < Minitest::Test
     assert_raises(Canvas::OutOfBoundsError) { canvas.write(2, -1, color) }
   end
 
-  test '#fill sets all pixels to the given color' do
+  test "#fill sets all pixels to the given color" do
     canvas = Canvas.new(2, 2)
     red = Color.new(1, 0, 0)
     canvas.fill(red)
@@ -65,5 +64,4 @@ class CanvasTest < Minitest::Test
     assert_equal red, canvas.read(1, 0)
     assert_equal red, canvas.read(1, 1)
   end
-
 end

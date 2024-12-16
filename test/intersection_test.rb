@@ -1,8 +1,7 @@
-require_relative 'test_helper'
+require_relative "test_helper"
 
 class IntersectionTest < Minitest::Test
-
-  test 'an intersection encapsulates t, object and ray' do
+  test "an intersection encapsulates t, object and ray" do
     sphere = Sphere.new
     ray = Ray.new(Point.new(0, 0, 1), Vector.new(0, 0, 1))
     intersection = Intersection.new(3.5, sphere, ray)
@@ -12,7 +11,7 @@ class IntersectionTest < Minitest::Test
     assert_equal ray, intersection.ray
   end
 
-  test 'precomputing the state of an intersection' do
+  test "precomputing the state of an intersection" do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     shape = Sphere.new
     intersection = Intersection.new(4, shape, ray)
@@ -25,7 +24,7 @@ class IntersectionTest < Minitest::Test
     assert_equal Vector.new(0, 0, -1), comps[:normalv]
   end
 
-  test 'the hit, when an intersection occurs on the outside' do
+  test "the hit, when an intersection occurs on the outside" do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     shape = Sphere.new
     intersection = Intersection.new(4, shape, ray)
@@ -33,7 +32,7 @@ class IntersectionTest < Minitest::Test
     assert !intersection.prepare_computations[:inside]
   end
 
-  test 'the hit, when an intersection occurs on the inside' do
+  test "the hit, when an intersection occurs on the inside" do
     ray = Ray.new(Point.new(0, 0, 0), Vector.new(0, 0, 1))
     shape = Sphere.new
     intersection = Intersection.new(1, shape, ray)
@@ -45,7 +44,7 @@ class IntersectionTest < Minitest::Test
     assert_equal Vector.new(0, 0, -1), comps[:normalv]
   end
 
-  test 'the hit should offset the point' do
+  test "the hit should offset the point" do
     ray = Ray.new(Point.new(0, 0, -5), Vector.new(0, 0, 1))
     shape = Sphere.new
     shape.transform = Matrix.translate(0, 0, 1)
@@ -55,5 +54,4 @@ class IntersectionTest < Minitest::Test
     assert comps[:over_point].z < -Tuple::EPSILON / 2
     assert comps[:point].z > comps[:over_point].z
   end
-
 end

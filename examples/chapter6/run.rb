@@ -1,10 +1,10 @@
-require_relative '../../lib/point'
-require_relative '../../lib/ray'
-require_relative '../../lib/sphere'
-require_relative '../../lib/color'
-require_relative '../../lib/point_light'
-require_relative '../../lib/lighting'
-require_relative '../../lib/canvas'
+require_relative "../../lib/point"
+require_relative "../../lib/ray"
+require_relative "../../lib/sphere"
+require_relative "../../lib/color"
+require_relative "../../lib/point_light"
+require_relative "../../lib/lighting"
+require_relative "../../lib/canvas"
 
 ray_origin = Point.new(0, 0, -5)
 wall_z = 10
@@ -29,7 +29,7 @@ canvas_pixels.times do |y|
   world_y = half - pixel_size * y
 
   canvas_pixels.times do |x|
-    print '.'
+    print "."
 
     world_x = -half + pixel_size * x
     point = Point.new(world_x, world_y, wall_z)
@@ -50,4 +50,4 @@ end
 puts
 puts "Took #{Time.now - start_time} seconds"
 
-canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), "render-#{canvas_pixels}x#{canvas_pixels}"))
+canvas.to_ppm(File.join(__dir__, "render-#{canvas_pixels}x#{canvas_pixels}"))

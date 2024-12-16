@@ -1,8 +1,7 @@
-require_relative './color'
-require_relative './ppm'
+require_relative "color"
+require_relative "ppm"
 
 class Canvas
-
   class OutOfBoundsError < StandardError; end
 
   attr_reader :pixels
@@ -48,10 +47,9 @@ class Canvas
     ppm = PPM.new(self)
     path = "#{filename}.ppm"
     puts "\nWriting #{path}..."
-    File.open(path, 'w') do |f|
+    File.open(path, "w") do |f|
       f.puts ppm.to_s
     end
-    return path
+    path
   end
-
 end

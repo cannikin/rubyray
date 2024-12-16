@@ -1,12 +1,11 @@
-require_relative 'test_helper'
+require_relative "test_helper"
 
 class MatrixTest < Minitest::Test
-
-  test '.identity returns an identity matrix' do
+  test ".identity returns an identity matrix" do
     assert_equal Matrix.new([
       [1, 0, 0],
       [0, 1, 0],
-      [0, 0, 1],
+      [0, 0, 1]
     ]), Matrix.identity(3)
 
     # defaults to 4x4
@@ -18,27 +17,27 @@ class MatrixTest < Minitest::Test
     ]), Matrix.identity
   end
 
-  test '#initialize a 4x4 matrix' do
+  test "#initialize a 4x4 matrix" do
     matrix = Matrix.new([
-      [   1,    2,    3,    4],
-      [5.5 ,6.5  ,7.5  ,  8.5],
-      [   9,   10,   11,   12],
+      [1, 2, 3, 4],
+      [5.5, 6.5, 7.5, 8.5],
+      [9, 10, 11, 12],
       [13.5, 14.5, 15.5, 16.5]
     ])
 
-    assert_equal 1,    matrix[0][0]
-    assert_equal 4,    matrix[0][3]
-    assert_equal 5.5,  matrix[1][0]
-    assert_equal 7.5,  matrix[1][2]
-    assert_equal 11,   matrix[2][2]
+    assert_equal 1, matrix[0][0]
+    assert_equal 4, matrix[0][3]
+    assert_equal 5.5, matrix[1][0]
+    assert_equal 7.5, matrix[1][2]
+    assert_equal 11, matrix[2][2]
     assert_equal 13.5, matrix[3][0]
     assert_equal 15.5, matrix[3][2]
   end
 
-  test '#initialize a 2x2 matrix' do
+  test "#initialize a 2x2 matrix" do
     matrix = Matrix.new([
-      [ -3,  5],
-      [  1, -2]
+      [-3, 5],
+      [1, -2]
     ])
 
     assert_equal(-3, matrix[0][0])
@@ -47,11 +46,11 @@ class MatrixTest < Minitest::Test
     assert_equal(-2, matrix[1][1])
   end
 
-  test '#initialize a 3x3 matrix' do
+  test "#initialize a 3x3 matrix" do
     matrix = Matrix.new([
-      [ -3,  5,  0],
-      [  1, -2, -7],
-      [  0,  1,  1]
+      [-3, 5, 0],
+      [1, -2, -7],
+      [0, 1, 1]
     ])
 
     assert_equal(-3, matrix[0][0])
@@ -59,7 +58,7 @@ class MatrixTest < Minitest::Test
     assert_equal(1, matrix[2][2])
   end
 
-  test '#== compares two equal matrixes' do
+  test "#== compares two equal matrixes" do
     matrixA = Matrix.new([
       [1, 2, 3, 4],
       [5, 6, 7, 8],
@@ -76,7 +75,7 @@ class MatrixTest < Minitest::Test
     assert matrixA == matrixB
   end
 
-  test '#== compares two unequal matrixes' do
+  test "#== compares two unequal matrixes" do
     matrixA = Matrix.new([
       [1, 2, 3, 4],
       [5, 6, 7, 8],
@@ -93,15 +92,15 @@ class MatrixTest < Minitest::Test
     assert matrixA != matrixB
   end
 
-  test '#== compares two matrixes within a delta' do
+  test "#== compares two matrixes within a delta" do
     # within delta
     matrixA = Matrix.new([
       [0.00002, 1],
-      [2, -3],
+      [2, -3]
     ])
     matrixB = Matrix.new([
       [0.00003, 1],
-      [2, -3],
+      [2, -3]
     ])
 
     assert matrixA == matrixB
@@ -109,17 +108,17 @@ class MatrixTest < Minitest::Test
     # outside delta
     matrixA = Matrix.new([
       [0.00002, 1],
-      [2, -3],
+      [2, -3]
     ])
     matrixB = Matrix.new([
       [0.000031, 1],
-      [2, -3],
+      [2, -3]
     ])
 
     assert matrixA != matrixB
   end
 
-  test '#* multipling two matrixes' do
+  test "#* multipling two matrixes" do
     matrixA = Matrix.new([
       [1, 2, 3, 4],
       [5, 6, 7, 8],
@@ -127,22 +126,22 @@ class MatrixTest < Minitest::Test
       [5, 4, 3, 2]
     ])
     matrixB = Matrix.new([
-      [-2, 1, 2,  3],
-      [ 3, 2, 1, -1],
-      [ 4, 3, 6,  5],
-      [ 1, 2, 7,  8]
+      [-2, 1, 2, 3],
+      [3, 2, 1, -1],
+      [4, 3, 6, 5],
+      [1, 2, 7, 8]
     ])
     product = matrixA * matrixB
 
     assert_equal Matrix.new([
-      [20, 22,  50,  48],
+      [20, 22, 50, 48],
       [44, 54, 114, 108],
       [40, 58, 110, 102],
-      [16, 26,  46,  42]
+      [16, 26, 46, 42]
     ]), product
   end
 
-  test '#* multipling a matrix and a tuple returns a point' do
+  test "#* multipling a matrix and a tuple returns a point" do
     matrix = Matrix.new([
       [1, 2, 3, 4],
       [2, 4, 4, 2],
@@ -156,7 +155,7 @@ class MatrixTest < Minitest::Test
     assert_equal Point.new(18, 24, 33), product
   end
 
-  test '#* multipling a matrix and a point returns a point' do
+  test "#* multipling a matrix and a point returns a point" do
     matrix = Matrix.new([
       [1, 2, 3, 4],
       [2, 4, 4, 2],
@@ -170,7 +169,7 @@ class MatrixTest < Minitest::Test
     assert_equal Point.new(18, 24, 33), product
   end
 
-  test '#* multipling a matrix by an identity matrix returns the same matrix' do
+  test "#* multipling a matrix by an identity matrix returns the same matrix" do
     matrix = Matrix.new([
       [1, 2, 3, 4],
       [5, 6, 7, 8],
@@ -182,14 +181,14 @@ class MatrixTest < Minitest::Test
     assert_equal matrix, product
   end
 
-  test '#* multipling the identity matrix by a tuple returns the tuple' do
+  test "#* multipling the identity matrix by a tuple returns the tuple" do
     tuple = Tuple.new(1, 2, 3, 4)
     product = Matrix.identity * tuple
 
     assert_equal tuple, product
   end
 
-  test '#transpose swaps rows and columns' do
+  test "#transpose swaps rows and columns" do
     original = Matrix.new([
       [0, 9, 3, 0],
       [9, 8, 0, 8],
@@ -206,11 +205,11 @@ class MatrixTest < Minitest::Test
     assert_equal transposed, original.transpose
   end
 
-  test '#transpose with the identity matrix is still the identity matrix' do
+  test "#transpose with the identity matrix is still the identity matrix" do
     assert_equal Matrix.identity.transpose, Matrix.identity
   end
 
-  test '#determinant of a 2x2 matrix' do
+  test "#determinant of a 2x2 matrix" do
     matrix = Matrix.new([
       [1, 5],
       [-3, 2]
@@ -219,20 +218,20 @@ class MatrixTest < Minitest::Test
     assert_equal 17, matrix.determinant
   end
 
-  test '#determinant of a 3x3 matrix' do
+  test "#determinant of a 3x3 matrix" do
     matrix = Matrix.new([
       [1, 2, 6],
       [-5, 8, -4],
       [2, 6, 4]
     ])
 
-    assert_equal 56,   matrix.cofactor(0, 0)
-    assert_equal 12,   matrix.cofactor(0, 1)
-    assert_equal(-46,  matrix.cofactor(0, 2))
+    assert_equal 56, matrix.cofactor(0, 0)
+    assert_equal 12, matrix.cofactor(0, 1)
+    assert_equal(-46, matrix.cofactor(0, 2))
     assert_equal(-196, matrix.determinant)
   end
 
-  test '#determinant of a 4x4 matrix' do
+  test "#determinant of a 4x4 matrix" do
     matrix = Matrix.new([
       [-2, -8, 3, 5],
       [-3, 1, 7, 3],
@@ -240,15 +239,14 @@ class MatrixTest < Minitest::Test
       [-6, 7, 7, -9]
     ])
 
-    assert_equal 690,   matrix.cofactor(0, 0)
-    assert_equal 447,   matrix.cofactor(0, 1)
-    assert_equal 210,   matrix.cofactor(0, 2)
-    assert_equal 51,    matrix.cofactor(0, 3)
+    assert_equal 690, matrix.cofactor(0, 0)
+    assert_equal 447, matrix.cofactor(0, 1)
+    assert_equal 210, matrix.cofactor(0, 2)
+    assert_equal 51, matrix.cofactor(0, 3)
     assert_equal(-4071, matrix.determinant)
-
   end
 
-  test '#sub returns ths submatrix of a 3x3 matrix' do
+  test "#sub returns ths submatrix of a 3x3 matrix" do
     matrix = Matrix.new([
       [1, 5, 0],
       [-3, 2, 7],
@@ -263,7 +261,7 @@ class MatrixTest < Minitest::Test
     assert_equal submatrix, matrix.sub(0, 2)
   end
 
-  test '#sub returns ths submatrix of a 4x4 matrix' do
+  test "#sub returns ths submatrix of a 4x4 matrix" do
     matrix = Matrix.new([
       [-6, 1, 1, 6],
       [-8, 5, 8, 6],
@@ -280,11 +278,11 @@ class MatrixTest < Minitest::Test
     assert_equal submatrix, matrix.sub(2, 1)
   end
 
-  test '#minor of a 3x3 matrix' do
+  test "#minor of a 3x3 matrix" do
     matrix = Matrix.new([
       [3, 5, 0],
       [2, -1, -7],
-      [6, -1, 5],
+      [6, -1, 5]
     ])
     submatrix = matrix.sub(1, 0)
 
@@ -292,11 +290,11 @@ class MatrixTest < Minitest::Test
     assert_equal 25, matrix.minor(1, 0)
   end
 
-  test '#cofactor of a 3x3 matrix' do
+  test "#cofactor of a 3x3 matrix" do
     matrix = Matrix.new([
       [3, 5, 0],
       [2, -1, -7],
-      [6, -1, 5],
+      [6, -1, 5]
     ])
 
     assert_equal(-12, matrix.minor(0, 0))
@@ -305,7 +303,7 @@ class MatrixTest < Minitest::Test
     assert_equal(-25, matrix.cofactor(1, 0))
   end
 
-  test '#invertable? tests for ability to invert' do
+  test "#invertable? tests for ability to invert" do
     matrix = Matrix.new([
       [6, 4, 4, 4],
       [5, 5, 7, 6],
@@ -327,7 +325,7 @@ class MatrixTest < Minitest::Test
     assert !matrix.invertable?
   end
 
-  test '#inverse of a matrix' do
+  test "#inverse of a matrix" do
     matrix = Matrix.new([
       [-5, 2, 6, -8],
       [1, -5, 1, 8],
@@ -342,10 +340,10 @@ class MatrixTest < Minitest::Test
     assert_equal 105, matrix.cofactor(3, 2)
     assert_in_delta (105.0 / 532.0), inverse[2][3], Tuple::EPSILON
     assert_equal(Matrix.new([
-      [0.21805,   0.45113,  0.24060, -0.04511],
-      [-0.80827, -1.45677, -0.44361,  0.52068],
-      [-0.07895, -0.22368, -0.05263,  0.19737],
-      [-0.52256, -0.81391, -0.30075,  0.30639]
+      [0.21805, 0.45113, 0.24060, -0.04511],
+      [-0.80827, -1.45677, -0.44361, 0.52068],
+      [-0.07895, -0.22368, -0.05263, 0.19737],
+      [-0.52256, -0.81391, -0.30075, 0.30639]
     ]), inverse)
 
     # another test to be sure
@@ -383,7 +381,7 @@ class MatrixTest < Minitest::Test
     assert_equal inverse, matrix.inverse
   end
 
-  test 'a multiplied matrix can be unmultiplied by the inverse' do
+  test "a multiplied matrix can be unmultiplied by the inverse" do
     matrixA = Matrix.new([
       [3, -9, 7, 3],
       [3, -8, 2, -9],
@@ -401,7 +399,7 @@ class MatrixTest < Minitest::Test
     assert_equal matrixA, matrixC * matrixB.inverse
   end
 
-  test '.translate creates a translation matrix' do
+  test ".translate creates a translation matrix" do
     transform = Matrix.new([
       [1, 0, 0, 2],
       [0, 1, 0, 3],
@@ -412,7 +410,7 @@ class MatrixTest < Minitest::Test
     assert_equal transform, Matrix.translate(2, 3, 4)
   end
 
-  test '#translate multiplies by a translation matrix' do
+  test "#translate multiplies by a translation matrix" do
     transform = Matrix.new([
       [1, 0, 0, 2],
       [0, 1, 0, 3],
@@ -423,29 +421,29 @@ class MatrixTest < Minitest::Test
     assert_equal transform, Matrix.identity.translate(2, 3, 4)
   end
 
-  test 'translate applied to a point' do
+  test "translate applied to a point" do
     transform = Matrix.translate(5, -3, 2)
     point = Point.new(-3, 4, 5)
 
     assert_equal Point.new(2, 1, 7), transform * point
   end
 
-  test 'multiplying by the inverse of a translation matrix' do
+  test "multiplying by the inverse of a translation matrix" do
     transform = Matrix.translate(5, -3, 2)
     inverse = transform.inverse
     point = Point.new(-3, 4, 5)
 
     assert_equal Point.new(-8, 7, 3), inverse * point
-    end
+  end
 
-  test 'translate does not affect vectors' do
+  test "translate does not affect vectors" do
     transform = Matrix.translate(5, -3, 2)
     vector = Vector.new(-3, 4, 5)
 
     assert_equal vector, transform * vector
   end
 
-  test '.scale creates a scaling matrix' do
+  test ".scale creates a scaling matrix" do
     transform = Matrix.new([
       [2, 0, 0, 0],
       [0, 3, 0, 0],
@@ -456,7 +454,7 @@ class MatrixTest < Minitest::Test
     assert_equal transform, Matrix.scale(2, 3, 4)
   end
 
-  test '#scale multiplies by a translation matrix' do
+  test "#scale multiplies by a translation matrix" do
     transform = Matrix.new([
       [2, 0, 0, 0],
       [0, 3, 0, 0],
@@ -467,21 +465,21 @@ class MatrixTest < Minitest::Test
     assert_equal transform, Matrix.identity.scale(2, 3, 4)
   end
 
-  test 'scaling applied to a point' do
+  test "scaling applied to a point" do
     transform = Matrix.scale(2, 3, 4)
     point = Point.new(-4, 6, 8)
 
     assert_equal Point.new(-8, 18, 32), transform * point
   end
 
-  test 'scaling applied to a vector' do
+  test "scaling applied to a vector" do
     transform = Matrix.scale(2, 3, 4)
     vector = Vector.new(-4, 6, 8)
 
     assert_equal Vector.new(-8, 18, 32), transform * vector
   end
 
-  test 'multiplying by the inverse of a scaling matrix' do
+  test "multiplying by the inverse of a scaling matrix" do
     transform = Matrix.scale(2, 3, 4)
     inverse = transform.inverse
     point = Point.new(-4, 6, 8)
@@ -489,14 +487,14 @@ class MatrixTest < Minitest::Test
     assert_equal Point.new(-2, 2, 2), inverse * point
   end
 
-  test 'reflection is scaling by a negative value' do
+  test "reflection is scaling by a negative value" do
     transform = Matrix.scale(-1, 1, 1)
     point = Point.new(2, 3, 4)
 
     assert_equal Point.new(-2, 3, 4), transform * point
   end
 
-  test 'rotating a point around the x axis' do
+  test "rotating a point around the x axis" do
     point = Point.new(0, 1, 0)
     half_quarter = Matrix.rotate_x(Math::PI / 4)
     full_quarter = Matrix.rotate_x(Math::PI / 2)
@@ -505,14 +503,14 @@ class MatrixTest < Minitest::Test
     assert_equal Point.new(0, 0, 1), full_quarter * point
   end
 
-  test 'inverse of an x rotation rotates in the opposite direction' do
+  test "inverse of an x rotation rotates in the opposite direction" do
     point = Point.new(0, 1, 0)
     half_quarter = Matrix.rotate_x(Math::PI / 4)
 
     assert_equal Point.new(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2), half_quarter.inverse * point
   end
 
-  test 'rotating a point around the y axis' do
+  test "rotating a point around the y axis" do
     point = Point.new(0, 0, 1)
     half_quarter = Matrix.rotate_y(Math::PI / 4)
     full_quarter = Matrix.rotate_y(Math::PI / 2)
@@ -521,7 +519,7 @@ class MatrixTest < Minitest::Test
     assert_equal Point.new(1, 0, 0), full_quarter * point
   end
 
-  test 'rotating a point around the z axis' do
+  test "rotating a point around the z axis" do
     point = Point.new(0, 1, 0)
     half_quarter = Matrix.rotate_z(Math::PI / 4)
     full_quarter = Matrix.rotate_z(Math::PI / 2)
@@ -530,49 +528,49 @@ class MatrixTest < Minitest::Test
     assert_equal Point.new(-1, 0, 0), full_quarter * point
   end
 
-  test 'shearing transformation moves x in proportion to y' do
+  test "shearing transformation moves x in proportion to y" do
     transform = Matrix.shear(1, 0, 0, 0, 0, 0)
     point = Point.new(2, 3, 4)
 
     assert_equal Point.new(5, 3, 4), transform * point
   end
 
-  test 'shearing transformation moves x in proportion to z' do
+  test "shearing transformation moves x in proportion to z" do
     transform = Matrix.shear(0, 1, 0, 0, 0, 0)
     point = Point.new(2, 3, 4)
 
     assert_equal Point.new(6, 3, 4), transform * point
   end
 
-  test 'shearing transformation moves y in proportion to x' do
+  test "shearing transformation moves y in proportion to x" do
     transform = Matrix.shear(0, 0, 1, 0, 0, 0)
     point = Point.new(2, 3, 4)
 
     assert_equal Point.new(2, 5, 4), transform * point
   end
 
-  test 'shearing transformation moves y in proportion to z' do
+  test "shearing transformation moves y in proportion to z" do
     transform = Matrix.shear(0, 0, 0, 1, 0, 0)
     point = Point.new(2, 3, 4)
 
     assert_equal Point.new(2, 7, 4), transform * point
   end
 
-  test 'shearing transformation moves z in proportion to x' do
+  test "shearing transformation moves z in proportion to x" do
     transform = Matrix.shear(0, 0, 0, 0, 1, 0)
     point = Point.new(2, 3, 4)
 
     assert_equal Point.new(2, 3, 6), transform * point
   end
 
-  test 'shearing transformation moves z in proportion to y' do
+  test "shearing transformation moves z in proportion to y" do
     transform = Matrix.shear(0, 0, 0, 0, 0, 1)
     point = Point.new(2, 3, 4)
 
     assert_equal Point.new(2, 3, 7), transform * point
   end
 
-  test 'individual transformations are applied in sequence' do
+  test "individual transformations are applied in sequence" do
     point = Point.new(1, 0, 1)
     rotation = Matrix.rotate_x(Math::PI / 2)
     scale = Matrix.scale(5, 5, 5)
@@ -588,18 +586,17 @@ class MatrixTest < Minitest::Test
     assert_equal Point.new(15, 0, 7), point4
   end
 
-  test 'chained transformations are applied in reverse order' do
+  test "chained transformations are applied in reverse order" do
     point = Point.new(1, 0, 1)
     transform = Matrix.translate(10, 5, 7) * Matrix.scale(5, 5, 5) * Matrix.rotate_x(Math::PI / 2)
 
     assert_equal Point.new(15, 0, 7), transform * point
   end
 
-  test 'chained transformations are applied in reverse order with instance methods' do
+  test "chained transformations are applied in reverse order with instance methods" do
     point = Point.new(1, 0, 1)
     transform = Matrix.rotate_x(Math::PI / 2).scale(5, 5, 5).translate(10, 5, 7)
 
     assert_equal Point.new(15, 0, 7), transform * point
   end
-
 end
