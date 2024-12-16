@@ -5,7 +5,8 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "Shopify.ruby-extensions-pack"
+        "Shopify.ruby-extensions-pack",
+        "testdouble.vscode-standard-ruby"
       ]
     }
   },
