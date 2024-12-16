@@ -59,79 +59,79 @@ class MatrixTest < Minitest::Test
   end
 
   test "#== compares two equal matrixes" do
-    matrixA = Matrix.new([
+    matrix_a = Matrix.new([
       [1, 2, 3, 4],
       [5, 6, 7, 8],
       [9, 8, 7, 6],
       [5, 4, 3, 2]
     ])
-    matrixB = Matrix.new([
+    matrix_b = Matrix.new([
       [1, 2, 3, 4],
       [5, 6, 7, 8],
       [9, 8, 7, 6],
       [5, 4, 3, 2]
     ])
 
-    assert matrixA == matrixB
+    assert matrix_a == matrix_b
   end
 
   test "#== compares two unequal matrixes" do
-    matrixA = Matrix.new([
+    matrix_a = Matrix.new([
       [1, 2, 3, 4],
       [5, 6, 7, 8],
       [9, 8, 7, 6],
       [5, 4, 3, 2]
     ])
-    matrixB = Matrix.new([
+    matrix_b = Matrix.new([
       [2, 3, 4, 5],
       [6, 7, 8, 9],
       [8, 7, 6, 5],
       [4, 3, 2, 1]
     ])
 
-    assert matrixA != matrixB
+    assert matrix_a != matrix_b
   end
 
   test "#== compares two matrixes within a delta" do
     # within delta
-    matrixA = Matrix.new([
+    matrix_a = Matrix.new([
       [0.00002, 1],
       [2, -3]
     ])
-    matrixB = Matrix.new([
+    matrix_b = Matrix.new([
       [0.00003, 1],
       [2, -3]
     ])
 
-    assert matrixA == matrixB
+    assert matrix_a == matrix_b
 
     # outside delta
-    matrixA = Matrix.new([
+    matrix_a = Matrix.new([
       [0.00002, 1],
       [2, -3]
     ])
-    matrixB = Matrix.new([
+    matrix_b = Matrix.new([
       [0.000031, 1],
       [2, -3]
     ])
 
-    assert matrixA != matrixB
+    assert matrix_a != matrix_b
   end
 
   test "#* multipling two matrixes" do
-    matrixA = Matrix.new([
+    matrix_a = Matrix.new([
       [1, 2, 3, 4],
       [5, 6, 7, 8],
       [9, 8, 7, 6],
       [5, 4, 3, 2]
     ])
-    matrixB = Matrix.new([
+    matrix_b = Matrix.new([
       [-2, 1, 2, 3],
       [3, 2, 1, -1],
       [4, 3, 6, 5],
       [1, 2, 7, 8]
     ])
-    product = matrixA * matrixB
+    product = matrix_a * matrix_b
 
     assert_equal Matrix.new([
       [20, 22, 50, 48],
@@ -382,21 +382,21 @@ class MatrixTest < Minitest::Test
   end
 
   test "a multiplied matrix can be unmultiplied by the inverse" do
-    matrixA = Matrix.new([
+    matrix_a = Matrix.new([
       [3, -9, 7, 3],
       [3, -8, 2, -9],
       [-4, 4, 4, 1],
       [-6, 5, -1, 1]
     ])
-    matrixB = Matrix.new([
+    matrix_b = Matrix.new([
       [8, 2, 2, 2],
       [3, -1, 7, 0],
       [7, 0, 5, 4],
       [6, -2, 0, 5]
     ])
-    matrixC = matrixA * matrixB
+    matrix_c = matrix_a * matrix_b
 
-    assert_equal matrixA, matrixC * matrixB.inverse
+    assert_equal matrix_a, matrix_c * matrix_b.inverse
   end
 
   test ".translate creates a translation matrix" do
