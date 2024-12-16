@@ -5,4 +5,4 @@ gem "minitest-reporters"
 gem "simplecov"
 gem "rerun"
 gem "parallel"
-gem "rubocop-rails-omakase", require: false
+gem "rubocop", require: false
