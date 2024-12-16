@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-gem "rake"
 gem "minitest-reporters"
-gem "simplecov"
-gem "rerun"
 gem "parallel"
-gem "rubocop", require: false
+gem "rake"
+gem "rerun"
+gem "simplecov"
+gem "standardrb"
