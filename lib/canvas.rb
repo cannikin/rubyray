@@ -23,7 +23,7 @@ class Canvas
   end
 
   def write(x, y, color)
-    raise OutOfBoundsError if x < 0 or y < 0 or x > width or y > height
+    raise OutOfBoundsError if x < 0 || y < 0 || x > width || y > height
     pixels[y][x] = color
   end
 

@@ -36,7 +36,7 @@ environment = Environment.new(gravity, wind)
 red = Color.new(1, 0, 0)
 canvas = Canvas.new(1100, 350)
 
-while projectile.position.y > 0 and projectile.position.y < canvas.height and projectile.position.x < canvas.width
+while projectile.position.y > 0 && projectile.position.y < canvas.height && projectile.position.x < canvas.width
   canvas.write(projectile.position.x.round, canvas.height - projectile.position.y.round, red)
   projectile = tick(environment, projectile)
   print "."
