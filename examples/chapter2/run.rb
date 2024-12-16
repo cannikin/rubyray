@@ -42,5 +42,4 @@ while (projectile.position.y > 0 and projectile.position.y < canvas.height and p
   print '.'
 end
 
-path = canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter2'))
-`open #{path}`
+canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter2'))

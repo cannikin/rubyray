@@ -33,5 +33,4 @@ canvas_pixels.times do |y|
   end
 end
 
-path = canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter5'))
-`open #{path}`
+canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter5'))

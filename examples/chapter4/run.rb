@@ -15,5 +15,4 @@ rotation = Matrix.rotate_z(-Math::PI / 6)
   point = rotation * point
 end
 
-path = canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter4'))
-`open #{path}`
+canvas.to_ppm(File.join(File.expand_path(File.dirname(__FILE__)), 'chapter4'))
